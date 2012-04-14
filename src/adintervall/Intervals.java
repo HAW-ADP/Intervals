@@ -1,6 +1,6 @@
 package adintervall;
 
-public interface Intervals extends Interval {
+public interface Intervals extends Interval, Iterable<Interval> {
 
 	// As Intervals is an Interval, and we might return an Interval, always use Interval as return value
 	// As Intervals is an Interval, and functions might be given an Intervals as an Interval, and an explicit

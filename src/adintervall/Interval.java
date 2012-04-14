@@ -2,9 +2,9 @@ package adintervall;
 
 public interface Interval {
 
-    public static final double NaN = 0.0d / 0.0;
-    public static final double NEGATIVE_INFINITY = -1.0 / 0.0;
-    public static final double POSITIVE_INFINITY = 1.0 / 0.0;
+    public static final double NaN = Double.NaN; // 0.0d / 0.0;
+    public static final double NEGATIVE_INFINITY = Double.NEGATIVE_INFINITY; // -1.0 / 0.0;
+    public static final double POSITIVE_INFINITY = Double.POSITIVE_INFINITY; // 1.0 / 0.0;
     
     // Literale
     Interval zeroInterval = new NormalInterval(0.0, 0.0);
