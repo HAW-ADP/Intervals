@@ -20,7 +20,7 @@ public class MultiIntervals implements Intervals {
 	@Override
 	public double getLowerBound() {
 		// The lower bound is the lowest lower bound in our interval set
-		double lbound = 0;
+		double lbound = Double.POSITIVE_INFINITY;
 		for (Interval i : intervals)
 			lbound = Math.min(lbound, i.getLowerBound());
 		return lbound;
@@ -29,7 +29,7 @@ public class MultiIntervals implements Intervals {
 	@Override
 	public double getUpperBound() {
 		// The upper bound is the highest upper bound in our interval set
-		double ubound = 0;
+		double ubound = Double.NEGATIVE_INFINITY;
 		for (Interval i : intervals)
 			ubound = Math.min(ubound, i.getLowerBound());
 		return ubound;
