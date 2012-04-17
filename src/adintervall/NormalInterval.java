@@ -1,6 +1,7 @@
 package adintervall;
 
 import java.util.Arrays;
+import java.util.HashSet;
 
 public class NormalInterval implements Interval{
 
@@ -84,6 +85,33 @@ public class NormalInterval implements Interval{
         return multi(FactoryInterval.createInterval(1 / other.getUpperBound(), 1 / other.getLowerBound()));
     }
 
+        @Override
+    public Interval plus(Intervals other) {
+     	HashSet<Interval> ergebnis = new HashSet<Interval>();
+	for (Interval o : other) {
+            ergebnis.add(this.plus(o));
+	}
+	return FactoryInterval.createInterval(ergebnis);
+    }
+
+    @Override
+    public Interval minus(Intervals other) {
+     	HashSet<Interval> ergebnis = new HashSet<Interval>();
+	for (Interval o : other) {
+            ergebnis.add(this.minus(o));
+	}
+	return FactoryInterval.createInterval(ergebnis);
+    }
+
+    @Override
+    public Interval multi(Intervals other) {
+    	HashSet<Interval> ergebnis = new HashSet<Interval>();
+	for (Interval o : other) {
+            ergebnis.add(this.multi(o));
+	}
+	return FactoryInterval.createInterval(ergebnis);
+    }
+    
     @Override
     public Interval plus(double other) {
         return this.plus(FactoryInterval.createInterval(other, other));
@@ -376,4 +404,5 @@ public class NormalInterval implements Interval{
         Interval tempiv = FactoryInterval.createInterval(other);
         return this.pGreaterEqual(tempiv);
     }
+    
 }

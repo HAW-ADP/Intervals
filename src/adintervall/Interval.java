@@ -26,6 +26,12 @@ public interface Interval {
 
     double length();
 
+    Interval plus(Intervals other);
+    
+    Interval minus(Intervals other);
+       
+    Interval multi(Intervals other);
+    
     //producer
     Interval plus(Interval other);
 
