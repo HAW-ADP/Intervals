@@ -47,29 +47,29 @@ public class MultiIntervals implements Intervals {
         return length;
     }
 
-//    @Override
-//    public Boolean contains(double value) {
-//        for (Interval i : this.getIntervals()) {
-//            if (i.contains(value)) return true;
-//        }
-//        return false;
-//    }
+// @Override
+// public Boolean contains(double value) {
+// for (Interval i : this.getIntervals()) {
+// if (i.contains(value)) return true;
+// }
+// return false;
+// }
 //
-//    @Override
-//    public Boolean contains(Interval value) {
-//        for (Interval i : this.getIntervals()) {
-//            if (i.contains(value)) return true;
-//        }
-//        return false;
-//    }
+// @Override
+// public Boolean contains(Interval value) {
+// for (Interval i : this.getIntervals()) {
+// if (i.contains(value)) return true;
+// }
+// return false;
+// }
 //
-//    @Override
-//    public Boolean contains(Intervals value) {
-//        for (Interval i : this.getIntervals()) {
-//            if (!this.contains(i)) return false;
-//        }
-//        return true;
-//    }
+// @Override
+// public Boolean contains(Intervals value) {
+// for (Interval i : this.getIntervals()) {
+// if (!this.contains(i)) return false;
+// }
+// return true;
+// }
     @Override
     public boolean equals(Object other) {
         if (this == other) {
@@ -198,7 +198,7 @@ public class MultiIntervals implements Intervals {
     @Override
     public Interval minus(double other) {
         return this.minus(FactoryInterval.createInterval(other, other));
-    }	
+    }
 
     @Override
     public Interval multi(double other) {
@@ -212,32 +212,32 @@ public class MultiIntervals implements Intervals {
 
     @Override
     public Interval plusKom(Interval other) {
-       	return other.plus(this); 
+        return other.plus(this);
     }
     
     @Override
     public Interval minusKom(Interval other) {
-       	return other.minus(this); 
+        return other.minus(this);
     }
       
     @Override
     public Interval multiKom(Interval other) {
-       	return other.multi(this); 
+        return other.multi(this);
     }
     
     @Override
     public Interval plusKom(double other) {
-  	return FactoryInterval.createInterval(other, other).plus(this);
+   return FactoryInterval.createInterval(other, other).plus(this);
     }
 
     @Override
     public Interval minusKom(double other) {
-     	return FactoryInterval.createInterval(other, other).minus(this);
+      return FactoryInterval.createInterval(other, other).minus(this);
     }
 
     @Override
     public Interval multiKom(double other) {
-  	return FactoryInterval.createInterval(other, other).multi(this);
+   return FactoryInterval.createInterval(other, other).multi(this);
     }
 
     @Override
