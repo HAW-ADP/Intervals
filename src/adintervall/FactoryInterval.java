@@ -71,16 +71,14 @@ public final class FactoryInterval {
                     ubound = i.getUpperBound();
                 }
             }
-            // Don't forget about the last part!
             if (ubound != null) {
                 result.push(new NormalInterval(lbound, ubound));
             }
-            // Here comes the part that lets us return Interval instead of Intervals
             if (result.size() == 0) {
                 return Interval.emptyInterval;
             } else if (result.size() == 1) {
                 return result.get(0);
-            } else { // We are the only function in the code allowed to do this.
+            } else { 
                 return new MultiIntervals(result);
             }
         }
