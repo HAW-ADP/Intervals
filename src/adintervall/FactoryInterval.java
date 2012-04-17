@@ -6,6 +6,18 @@ public final class FactoryInterval {
 
     private FactoryInterval() {
     }
+    
+//	public static Interval createInterval(Interval... a) {
+//	if (a.length == 1)
+//		return a[0];
+//	else {
+//		Interval i = a[0];
+//		for (int n = 1; n < a.length; n++) {
+//			i = i.union(a[n]);
+//		}
+//		return i;
+//	}
+//}
 
     public static Interval createInterval(double val1, double val2) {
         if (NormalInterval.isNaN(val1) || NormalInterval.isNaN(val2) || val1 > val2) {
@@ -39,6 +51,8 @@ public final class FactoryInterval {
 //                        lList.add((Interval) o);
                 } else if (obj instanceof Intervals) {
                     lList.addAll(((Intervals) obj).getIntervals());
+                	//for (Interval i : (Intervals) obj)
+                	//	lList.add(i);
                 } else if (obj instanceof Interval && !(obj == Interval.NaI)) {
                     lList.add((Interval) obj);
                 } else {
@@ -71,14 +85,16 @@ public final class FactoryInterval {
                     ubound = i.getUpperBound();
                 }
             }
+            // Don't forget about the last part!
             if (ubound != null) {
                 result.push(new NormalInterval(lbound, ubound));
             }
+            // Here comes the part that lets us return Interval instead of Intervals
             if (result.size() == 0) {
                 return Interval.emptyInterval;
             } else if (result.size() == 1) {
                 return result.get(0);
-            } else {
+            } else { // We are the only function in the code allowed to do this.
                 return new MultiIntervals(result);
             }
         }
