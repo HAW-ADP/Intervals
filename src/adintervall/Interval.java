@@ -4,16 +4,14 @@ import java.util.LinkedList;
 
 public interface Interval {
 
-    public static final double NaN = Double.NaN; // 0.0d / 0.0;
-    public static final double NEGATIVE_INFINITY = Double.NEGATIVE_INFINITY; // -1.0 / 0.0;
-    public static final double POSITIVE_INFINITY = Double.POSITIVE_INFINITY; // 1.0 / 0.0;
-    public static final Interval emptyInterval = new MultiIntervals(new LinkedList<Interval>()); //TODO set this to something reasonable
+
     // Literale
     Interval zeroInterval = new NormalInterval(0.0, 0.0);
     Interval oneInterval = new NormalInterval(1.0, 1.0);
     Interval NaI = new NormalInterval(NaN, NaN);
     Interval realInterval = new NormalInterval(NEGATIVE_INFINITY, POSITIVE_INFINITY);
-
+    Interval emptyInterval = new MultiIntervals(new LinkedList<Interval>());
+    
     // accessor
     double getLowerBound();
 
@@ -25,12 +23,6 @@ public interface Interval {
     boolean notEquals(Object other);
 
     double length();
-
-    Interval plus(Intervals other);
-
-    Interval minus(Intervals other);
-
-    Interval multi(Intervals other);
 
     //producer
     Interval plus(Interval other);
@@ -111,5 +103,4 @@ public interface Interval {
 
     Boolean pGreaterEqual(double other);
 
-    Interval div(Intervals other);
 }
