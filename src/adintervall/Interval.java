@@ -36,7 +36,6 @@ public interface Interval {
     Interval square();
 
     //double operations
-    Boolean contains(double value);
 
     Interval plus(double other);
 
@@ -69,8 +68,9 @@ public interface Interval {
     Interval difference(double other);
 
     //Vergleiche
-    Boolean contains(Interval other);
-
+    boolean contains(double value);
+    boolean contains(Interval other);
+    
     Boolean less(Interval other);
 
     Boolean lessEqual(Interval other);

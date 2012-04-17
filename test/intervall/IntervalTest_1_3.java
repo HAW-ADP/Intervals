@@ -1,20 +1,15 @@
 package intervall;
 
-import static main.FactoryInterval.createInterval;
-import static main.Interval.NaI;
-import static org.junit.Assert.*;
-
+import static adintervall.FactoryInterval.*;
+import adintervall.Interval;
+import static adintervall.Interval.NaI;
+import static java.lang.Double.NaN;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
-
-import main.Interval;
-
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import org.junit.Test;
-//Statischer factory und interval import: 
-import static adintervall.FactoryInterval.*;
-import static adintervall.Interval.*;
-import static java.lang.Double.*;
 
 public class IntervalTest_1_3 {
 	
