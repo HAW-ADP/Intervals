@@ -1,7 +1,7 @@
 package adintervall;
 
 import java.util.Arrays;
-import java.util.HashSet;
+import static main.FactoryInterval.*;
 
 public class NormalInterval implements Interval{
 
@@ -47,7 +47,7 @@ public class NormalInterval implements Interval{
         double[] d = {lowerbound + other.getLowerBound(), lowerbound + other.getUpperBound(), upperbound + other.getLowerBound(), upperbound + other.getUpperBound()};
         Arrays.sort(d);
 
-        return FactoryInterval.createInterval(d[0], d[d.length - 1]);
+        return createInterval(d[0], d[d.length - 1]);
     }
 
     @Override
@@ -59,7 +59,7 @@ public class NormalInterval implements Interval{
         double[] d = {lowerbound - other.getLowerBound(), lowerbound - other.getUpperBound(), upperbound - other.getLowerBound(), upperbound - other.getUpperBound()};
         Arrays.sort(d);
 
-        return FactoryInterval.createInterval(d[0], d[d.length - 1]);
+        return createInterval(d[0], d[d.length - 1]);
     }
 
     @Override
@@ -71,7 +71,7 @@ public class NormalInterval implements Interval{
         double[] d = {lowerbound * other.getLowerBound(), lowerbound * other.getUpperBound(), upperbound * other.getLowerBound(), upperbound * other.getUpperBound()};
         Arrays.sort(d);
 
-        return FactoryInterval.createInterval(d[0], d[d.length - 1]);
+        return createInterval(d[0], d[d.length - 1]);
     }
 
     @Override
@@ -80,77 +80,50 @@ public class NormalInterval implements Interval{
             return Interval.NaI;
         }
         if (other.contains(0d)) {
-            return multi(Interval.realInterval);
+            return multi(createInterval(new Interval[]{createInterval(Double.NEGATIVE_INFINITY, (1/other.getLowerBound())), createInterval((1/other.getUpperBound()),Double.POSITIVE_INFINITY)}));
         }
-        return multi(FactoryInterval.createInterval(1 / other.getUpperBound(), 1 / other.getLowerBound()));
+        return multi(createInterval(1 / other.getUpperBound(), 1 / other.getLowerBound()));
     }
 
-        @Override
-    public Interval plus(Intervals other) {
-     	HashSet<Interval> ergebnis = new HashSet<Interval>();
-	for (Interval o : other) {
-            ergebnis.add(this.plus(o));
-	}
-	return FactoryInterval.createInterval(ergebnis);
-    }
-
-    @Override
-    public Interval minus(Intervals other) {
-     	HashSet<Interval> ergebnis = new HashSet<Interval>();
-	for (Interval o : other) {
-            ergebnis.add(this.minus(o));
-	}
-	return FactoryInterval.createInterval(ergebnis);
-    }
-
-    @Override
-    public Interval multi(Intervals other) {
-    	HashSet<Interval> ergebnis = new HashSet<Interval>();
-	for (Interval o : other) {
-            ergebnis.add(this.multi(o));
-	}
-	return FactoryInterval.createInterval(ergebnis);
-    }
-    
     @Override
     public Interval plus(double other) {
-        return this.plus(FactoryInterval.createInterval(other, other));
+        return this.plus(createInterval(other, other));
     }
 
     @Override
     public Interval minus(double other) {
-         return this.minus(FactoryInterval.createInterval(other, other));
+         return this.minus(createInterval(other, other));
     }
 
     @Override
     public Interval multi(double other) {
-         return this.multi(FactoryInterval.createInterval(other, other));
+         return this.multi(createInterval(other, other));
     }
     
     @Override
     public Interval div(double other) {
-        return this.div(FactoryInterval.createInterval(other, other));
+        return this.div(createInterval(other, other));
     }
     
     //commutative operatians
     @Override
     public Interval plusKom(double other) {
-        return FactoryInterval.createInterval(other, other).plus(this);
+        return createInterval(other, other).plus(this);
     }
 
     @Override
     public Interval minusKom(double other) {
-        return FactoryInterval.createInterval(other, other).minus(this);
+        return createInterval(other, other).minus(this);
     }
 
     @Override
     public Interval multiKom(double other) {
-        return FactoryInterval.createInterval(other, other).multi(this);
+        return createInterval(other, other).multi(this);
     }
     
     @Override
     public Interval divKom(double other) {
-        return FactoryInterval.createInterval(other, other).div(this);
+        return createInterval(other, other).div(this);
     }
     
     @Override
@@ -203,8 +176,9 @@ public class NormalInterval implements Interval{
        if (other == null || this == Interval.NaI || other == Interval.NaI  ) {
             return Interval.NaI;
         }
+       
         if (this.getLowerBound() > other.getUpperBound() || this.getUpperBound() < other.getLowerBound()) {
-            return Interval.NaI;
+        	return createInterval(Arrays.asList(new Interval[]{createInterval(this.getLowerBound(), this.getUpperBound()), createInterval(other.getLowerBound(), other.getUpperBound())}));
         }
         double a, b;
 
@@ -220,7 +194,7 @@ public class NormalInterval implements Interval{
             b = other.getUpperBound();
         }
 
-        return FactoryInterval.createInterval(a, b);
+        return createInterval(a, b);
 
     }
 
@@ -229,6 +203,7 @@ public class NormalInterval implements Interval{
        if (other == null || this == Interval.NaI || other == Interval.NaI  ) {
             return Interval.NaI;
         }
+
         double a, b;
 
         if (this.getLowerBound() > other.getLowerBound()) {
@@ -244,9 +219,9 @@ public class NormalInterval implements Interval{
         }
 
         if (a <= b) {
-            return FactoryInterval.createInterval(a, b);
+            return createInterval(a, b);
         }
-        return Interval.emptyInterval;
+        return Interval.NaI;
 
     }
 
@@ -256,8 +231,12 @@ public class NormalInterval implements Interval{
             return Interval.NaI;
         }
         double a, b;
-
-        if (this.getLowerBound() <= other.getLowerBound() && other.getLowerBound() <= this.getUpperBound() && this.getUpperBound() <= other.getUpperBound()) {
+        a = Double.NaN;
+        b = Double.NaN;
+        
+        if(this.equals(other)){
+        	return NaI;
+        } else if (this.getLowerBound() <= other.getLowerBound() && other.getLowerBound() <= this.getUpperBound() && this.getUpperBound() <= other.getUpperBound()) {
             a = this.getLowerBound();
             b = other.getLowerBound();
         } else if (other.getLowerBound() <= this.getLowerBound() && this.getLowerBound() <= other.getUpperBound() && other.getUpperBound() <= this.getUpperBound()) {
@@ -266,14 +245,34 @@ public class NormalInterval implements Interval{
         } else if ((other.getUpperBound() < this.getLowerBound()) || (this.getUpperBound() < other.getLowerBound())) {
             a = this.getLowerBound();
             b = this.getUpperBound();
-        } else {
-            return Interval.NaI;
+        } else if(this.contains(other)){
+        	a = this.lowerbound;
+        	b = other.getLowerBound();
+        	double c = other.getUpperBound();
+        	double d = this.upperbound;
+        	return createInterval(new Interval[]{createInterval(a, b),createInterval(c, d)});
         }
 
-        return FactoryInterval.createInterval(a, b);
+        return createInterval(a, b);
     }
 
-
+    @Override
+    public Interval union(double other){
+        Interval tempiv = FactoryInterval.createInterval(other);
+        return this.union(tempiv);
+    }
+     
+    @Override
+    public Interval intersection(double other){
+        Interval tempiv = FactoryInterval.createInterval(other);
+        return this.intersection(tempiv);
+    }
+    
+    @Override
+    public Interval difference(double other){
+        Interval tempiv = FactoryInterval.createInterval(other);
+        return this.difference(tempiv);
+    }
 
     @Override
     public Boolean contains(Interval other) {
@@ -285,9 +284,6 @@ public class NormalInterval implements Interval{
         }
         return false;
     }
-
-    
-    
     
     @Override
     public Interval square() {
@@ -296,9 +292,9 @@ public class NormalInterval implements Interval{
         double d1 = Math.pow(this.lowerbound, 2);
         double d2 = Math.pow(this.upperbound, 2);
         if (this.contains(0))
-            return FactoryInterval.createInterval(0, Math.max(d1, d2));
+            return createInterval(0, Math.max(d1, d2));
         else
-            return FactoryInterval.createInterval(Math.min(d1, d2), Math.max(d1, d2));
+            return createInterval(Math.min(d1, d2), Math.max(d1, d2));
     }
 
     @Override
@@ -307,13 +303,13 @@ public class NormalInterval implements Interval{
                 return false;
         return this.upperbound < other.getLowerBound();
     }
-
-    @Override
-    public Boolean lessEqual(Interval other) {
-        if (other == null || this == Interval.NaI || other == Interval.NaI)
-                return false;
-        return this.upperbound <= other.getLowerBound();
-    }
+    
+	  @Override
+	  public Boolean lessEqual(Interval other) {
+	      if (other == null || this == Interval.NaI || other == Interval.NaI)
+	              return false;
+	      return this.less(other)||this.equals(other);
+	  }
 
     @Override
     public Boolean greater(Interval other) {
@@ -321,40 +317,61 @@ public class NormalInterval implements Interval{
                 return false;
         return this.lowerbound > other.getUpperBound();
     }
+    
+	  @Override
+	  public Boolean greaterEqual(Interval other) {
+	      if (other == null || this == Interval.NaI || other == Interval.NaI)
+	              return false;
+	      return this.greater(other)||this.equals(other);
+	  }
 
+	  
     @Override
-    public Boolean greaterEqual(Interval other) {
+    public double pLess(Interval other) {
         if (other == null || this == Interval.NaI || other == Interval.NaI)
-                return false;
-        return this.lowerbound >= other.getUpperBound();
-    }
+            return Double.NaN;
 
-    @Override
-    public Boolean pLess(Interval other) {
-        if (other == null || this == Interval.NaI || other == Interval.NaI)
-                return false;
-        return this.lowerbound < other.getUpperBound();
+        if (this.equals(other) || (this.lowerbound == other.getLowerBound() && other.getLowerBound() == Double.NEGATIVE_INFINITY) || (this.upperbound == other.getUpperBound() && other.getUpperBound() == Double.POSITIVE_INFINITY))
+        	return 50d;
+        else if (this.less(other) || other.getUpperBound() == Double.POSITIVE_INFINITY || this.lowerbound == Double.NEGATIVE_INFINITY )
+        	return 100d;
+        else if (this.greater(other) || other.getLowerBound() == Double.NEGATIVE_INFINITY || this.upperbound == Double.POSITIVE_INFINITY)
+        	return 0d;
+        else if ( this.contains(other)) { 
+        	double c = this.upperbound - other.getUpperBound();
+        	return (100 - (100*(c/this.length())) - (50*(other.length()/this.length())));	
+        }else if (other.contains(this)) {
+        	double c = other.getUpperBound() - this.upperbound;
+        	return (50*(this.length()/other.length())) + (100*(c/other.length()));
+        } else if (other.contains(this.upperbound)){
+        	double b = this.upperbound - other.getUpperBound();
+        	return (100 - (50*(b/this.length())*(b/other.length())));
+        } else if (this.contains(other.getUpperBound())){
+        	double b = other.getUpperBound() - this.getLowerBound();
+        	return (50*(b/this.length())*(b/other.length()));
+        } else	
+    	return Double.NaN;
     }
 
     @Override
     public Boolean pLessEqual(Interval other) {
         if (other == null || this == Interval.NaI || other == Interval.NaI)
-                return false;
-        return this.lowerbound <= other.getUpperBound();
+            return false; 
+    	return this.pLess(other) >= 50 ;
     }
 
     @Override
-    public Boolean pGreater(Interval other) {
+    public double pGreater(Interval other) {
         if (other == null || this == Interval.NaI || other == Interval.NaI)
-                return false;
-        return this.upperbound > other.getLowerBound();
+            return Double.NaN;
+    	return 100 - this.pLess(other);
     }
 
     @Override
     public Boolean pGreaterEqual(Interval other) {
         if (other == null || this == Interval.NaI || other == Interval.NaI)
-                return false;
-        return this.upperbound >= other.getLowerBound();
+            return false;
+    	return this.pGreater(other) >= 50 ;
     }
 
     @Override
@@ -382,27 +399,84 @@ public class NormalInterval implements Interval{
     }
 
     @Override
-    public Boolean pLess(double other) {
-        Interval tempiv = FactoryInterval.createInterval(other);
-        return this.pLess(tempiv);
+    public double pLess(double other) {
+    	Interval tempiv = FactoryInterval.createInterval(other);
+    	return this.pLess(tempiv);
     }
 
     @Override
     public Boolean pLessEqual(double other) {
-        Interval tempiv = FactoryInterval.createInterval(other);
-        return this.pLessEqual(tempiv);
+        if (this == Interval.NaI || isNaN(other))
+            return false;
+   	    return this.pLess(other) >= 50;
     }
 
     @Override
-    public Boolean pGreater(double other) {
-        Interval tempiv = FactoryInterval.createInterval(other);
-        return this.pGreater(tempiv);
+    public double pGreater(double other) {
+    	if (this == Interval.NaI || isNaN(other))
+            return Double.NaN;
+    	return 100 - this.pLess(other);
     }
 
-    @Override
     public Boolean pGreaterEqual(double other) {
-        Interval tempiv = FactoryInterval.createInterval(other);
-        return this.pGreaterEqual(tempiv);
+        if (this == Interval.NaI || isNaN(other))
+            return false;
+    	return this.pGreater(other) >= 50;
     }
-    
+
+	@Override
+	public Interval plus(Intervals other) {
+       if (other == null || this == Interval.NaI || other == Interval.NaI  ) {
+            return Interval.NaI;
+        }
+       
+		return other.plus(this);
+	}
+
+	@Override
+	public Interval minus(Intervals other) {
+	       if (other == null || this == Interval.NaI || other == Interval.NaI  ) {
+	            return Interval.NaI;
+	        }
+	       
+	       return this;
+			
+	}
+
+	@Override
+	public Interval multi(Intervals other) {
+	       if (other == null || this == Interval.NaI || other == Interval.NaI  ) {
+	            return Interval.NaI;
+	        }
+	       
+			return other.multi(this);
+	}
+
+	@Override
+	public Interval div(Intervals other) {
+		return NaI;
+	}
+
+	@Override
+	public Interval union(Intervals other) {
+	       if (other == null || this == Interval.NaI || other == Interval.NaI  ) {
+	            return Interval.NaI;
+	        }
+	       
+			return other.union(this);
+	}
+
+	@Override
+	public Interval intersection(Intervals other) {
+	       if (other == null || this == Interval.NaI || other == Interval.NaI  ) {
+	            return Interval.NaI;
+	        }
+	       
+			return other.intersection(this);
+	}
+
+	@Override
+	public Interval difference(Intervals other) {
+		return NaI;
+	}
 }
