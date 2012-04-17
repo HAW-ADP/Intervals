@@ -14,7 +14,7 @@ public final class FactoryInterval {
             return Interval.zeroInterval;
         } else if (val1 == 1d && val2 == 1d) {
             return Interval.oneInterval;
-        } else if (val1 == Interval.NEGATIVE_INFINITY && val2 == Interval.POSITIVE_INFINITY) {
+        } else if (val1 == Double.NEGATIVE_INFINITY && val2 == Double.POSITIVE_INFINITY) {
             return Interval.realInterval;
         } else {
             return new NormalInterval(val1, val2);
@@ -54,7 +54,7 @@ public final class FactoryInterval {
                 }
             });
 
-            LinkedList<Interval> result = new LinkedList<>();
+            List<Interval> result = new LinkedList<>();
             Double lbound = null;
             Double ubound = null;
 
