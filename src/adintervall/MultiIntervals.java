@@ -20,8 +20,9 @@ public class MultiIntervals implements Intervals {
 
     @Override
     public double getLowerBound() {
-        if (this.intervals.isEmpty())
+        if (this.intervals.isEmpty()) {
             return Double.NaN;
+        }
 
         double lbound = Double.POSITIVE_INFINITY;
         for (Interval i : intervals) {
@@ -32,8 +33,9 @@ public class MultiIntervals implements Intervals {
 
     @Override
     public double getUpperBound() {
-        if (this.intervals.isEmpty())
+        if (this.intervals.isEmpty()) {
             return Double.NaN;
+        }
 
         double ubound = Double.NEGATIVE_INFINITY;
         for (Interval i : intervals) {
@@ -56,7 +58,9 @@ public class MultiIntervals implements Intervals {
     @Override
     public boolean contains(double other) {
         for (Interval i : this.getIntervals()) {
-           if (i.contains(other)) return true;
+            if (i.contains(other)) {
+                return true;
+            }
         }
         return false;
     }
@@ -65,17 +69,21 @@ public class MultiIntervals implements Intervals {
     public boolean contains(Interval other) {
         if (other instanceof Intervals) {
             for (Interval i : ((Intervals) other).getIntervals()) {
-                if (!this.contains(i)) return false;
+                if (!this.contains(i)) {
+                    return false;
+                }
             }
             return true;
         } else {
             for (Interval i : this.getIntervals()) {
-                if (i.equals(other)) return true;
+                if (i.equals(other)) {
+                    return true;
+                }
             }
             return false;
         }
     }
-  
+
     @Override
     public boolean equals(Object other) {
         if (this == other) {
@@ -147,30 +155,30 @@ public class MultiIntervals implements Intervals {
     public Interval plusKom(Interval other) {
         return other.plus(this);
     }
-    
+
     @Override
     public Interval minusKom(Interval other) {
         return other.minus(this);
     }
-      
+
     @Override
     public Interval multiKom(Interval other) {
         return other.multi(this);
     }
-    
+
     @Override
     public Interval plusKom(double other) {
-   return FactoryInterval.createInterval(other, other).plus(this);
+        return FactoryInterval.createInterval(other, other).plus(this);
     }
 
     @Override
     public Interval minusKom(double other) {
-      return FactoryInterval.createInterval(other, other).minus(this);
+        return FactoryInterval.createInterval(other, other).minus(this);
     }
 
     @Override
     public Interval multiKom(double other) {
-   return FactoryInterval.createInterval(other, other).multi(this);
+        return FactoryInterval.createInterval(other, other).multi(this);
     }
 
     @Override
@@ -296,7 +304,7 @@ public class MultiIntervals implements Intervals {
     public Boolean pLessEqual(double other) {
         return false;
     }
-    
+
     @Override
     public Boolean pGreaterEqual(double other) {
         return false;
@@ -321,7 +329,7 @@ public class MultiIntervals implements Intervals {
     public Interval difference(double other) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-    
+
     @Override
     public Interval plus(Interval other) {
         Set<Interval> ergebnis = new HashSet<Interval>();
@@ -386,7 +394,6 @@ public class MultiIntervals implements Intervals {
         return FactoryInterval.createInterval(ergebnis);
     }
 
-
     @Override
     public Interval multi(double other) {
         return this.multi(FactoryInterval.createInterval(other, other));
@@ -400,5 +407,15 @@ public class MultiIntervals implements Intervals {
     @Override
     public Boolean contains(Interval other) {
         throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public double pLess(double other) {
+        return 0;
+    }
+
+    @Override
+    public double pGreater(double other) {
+        return 0;
     }
 }

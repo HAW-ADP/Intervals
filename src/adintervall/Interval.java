@@ -71,36 +71,36 @@ public interface Interval {
     boolean contains(double value);
     boolean contains(Interval other);
     
-    Boolean less(Interval other);
+    boolean less(Interval other);
 
-    Boolean lessEqual(Interval other);
+    boolean lessEqual(Interval other);
 
-    Boolean greater(Interval other);
+    boolean greater(Interval other);
 
-    Boolean greaterEqual(Interval other);
+    boolean greaterEqual(Interval other);
 
     double pLess(Interval other);
 
-    Boolean pLessEqual(Interval other);
+    boolean pLessEqual(Interval other);
 
     double pGreater(Interval other);
 
-    Boolean pGreaterEqual(Interval other);
+    boolean pGreaterEqual(Interval other);
 
-    Boolean less(double other);
+    boolean less(double other);
 
-    Boolean lessEqual(double other);
+    boolean lessEqual(double other);
 
-    Boolean greater(double other);
+    boolean greater(double other);
 
-    Boolean greaterEqual(double other);
+    boolean greaterEqual(double other);
 
     double pLess(double other);
 
-    Boolean pLessEqual(double other);
+    boolean pLessEqual(double other);
 
     double pGreater(double other);
 
-    Boolean pGreaterEqual(double other);
+    boolean pGreaterEqual(double other);
 
 }
