@@ -39,7 +39,7 @@ public final class FactoryInterval {
 
     
     public static Interval createInterval(Collection<? extends Object> col){
-        LinkedList<Interval> lList = new LinkedList<>();
+        List<Interval> lList = new LinkedList<>();
         if (col.size() == 0) {
             return Interval.emptyInterval;
         } else {
