@@ -109,8 +109,7 @@ public class MultiIntervals implements Intervals {
 
     @Override
     public boolean notEquals(Object other) {
-        // TODO Auto-generated method stub
-        return false;
+        return !this.equals(other);
     }
 
     @Override
@@ -197,18 +196,8 @@ public class MultiIntervals implements Intervals {
 
     @Override
     public Interval square() {
-        return NaI;
-    }
-
-    @Override
-    public Boolean contains(double value) {
-        // If any of our intervals contains the value, we contain it.
-        for (Interval i : intervals) {
-            if (i.contains(value)) {
-                return true;
-            }
-        }
-        return false;
+        // TODO Auto-generated method stub
+        return null;
     }
 
     @Override
@@ -314,27 +303,6 @@ public class MultiIntervals implements Intervals {
                 result.add(i.difference(other));
             }
             return collapse(result);
-        }
-    }
-
-    @Override
-    public Boolean contains(Interval other) {
-        // If other is an intervals, any of them must be contained. Using the same method.
-        // Otherwise checks if any of our intervals contains other.
-        if (other instanceof Intervals) {
-            for (Interval i : (Intervals) other) {
-                if (!contains(i)) {
-                    return false;
-                }
-            }
-            return true;
-        } else {
-            for (Interval i : intervals) {
-                if (i.contains(other)) {
-                    return true;
-                }
-            }
-            return false;
         }
     }
 
