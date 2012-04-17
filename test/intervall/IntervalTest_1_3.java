@@ -35,13 +35,13 @@ public class IntervalTest_1_3 {
 		i11 = createInterval(0,24);
 		i12 = createInterval(76,100);
 		
-//		m1 = createInterval(new ArrayList<Interval>(Arrays.asList(new Interval[] {i1, i4})));
-//		m2 = createInterval(new ArrayList<Interval>(Arrays.asList(new Interval[] {i1, i2})));
-//		m3 = createInterval(new ArrayList<Interval>(Arrays.asList(new Interval[] {i6, i5})));
-//		m4 = createInterval(new ArrayList<Interval>(Arrays.asList(new Interval[] {i11, i12})));
-//		m5 = createInterval(new ArrayList<Interval>(Arrays.asList(
-//							new Interval[] {createInterval(Double.NEGATIVE_INFINITY, (1/i11.getLowerBound())),
-//									        createInterval((1/i11.getUpperBound()),Double.POSITIVE_INFINITY)})));
+		m1 = createInterval(new ArrayList<Interval>(Arrays.asList(new Interval[] {i1, i4})));
+		m2 = createInterval(new ArrayList<Interval>(Arrays.asList(new Interval[] {i1, i2})));
+		m3 = createInterval(new ArrayList<Interval>(Arrays.asList(new Interval[] {i6, i5})));
+		m4 = createInterval(new ArrayList<Interval>(Arrays.asList(new Interval[] {i11, i12})));
+		m5 = createInterval(new ArrayList<Interval>(Arrays.asList(
+							new Interval[] {createInterval(Double.NEGATIVE_INFINITY, (1/i11.getLowerBound())),
+									        createInterval((1/i11.getUpperBound()),Double.POSITIVE_INFINITY)})));
 	}
 
 	@Test
@@ -538,6 +538,7 @@ public class IntervalTest_1_3 {
 		//Entstehen von NormalIntervallen
 		assertTrue(i3.equals(i3.union(m3)));
 		System.out.println(i3 + ".union(" + m3 + ") = " + i3.union(m3));
+		System.out.println(m3 + ".union(" + i3 + ") =" + m3.union(i3));
 		System.out.println();
 	}
 	
@@ -579,8 +580,9 @@ public class IntervalTest_1_3 {
 		System.out.println();
 		
 		//Entstehen von MultiIntervallen:
-		assertTrue(i1.div(i11).equals(m5));
-		System.out.println(i1 + ".div(" + i11 + ") = " + i1.div(i11));
+		assertTrue(i6.div(i11).equals(m5));
+		System.out.println(i6 + ".div(" + i11 + ") = " + i6.div(i11));
+		System.out.println(m5);
 		System.out.println();
 	}
 }
