@@ -151,17 +151,14 @@ public class MultiIntervals implements Intervals {
         return NaI;
     }
 
-    @Override
     public Interval plusKom(Interval other) {
         return other.plus(this);
     }
 
-    @Override
     public Interval minusKom(Interval other) {
         return other.minus(this);
     }
 
-    @Override
     public Interval multiKom(Interval other) {
         return other.multi(this);
     }
@@ -238,76 +235,13 @@ public class MultiIntervals implements Intervals {
     }
 
     @Override
-    public Boolean less(Interval other) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public Boolean lessEqual(Interval other) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public Boolean greater(Interval other) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public Boolean greaterEqual(Interval other) {
-        return false;
-    }
-
-    @Override
     public double pLess(Interval other) {
         return 0;
     }
 
     @Override
-    public Boolean pLessEqual(Interval other) {
-        return false;
-    }
-
-    @Override
     public double pGreater(Interval other) {
         return 0;
-    }
-
-    @Override
-    public Boolean pGreaterEqual(Interval other) {
-        return false;
-    }
-
-    @Override
-    public Boolean less(double other) {
-        return false;
-    }
-
-    @Override
-    public Boolean lessEqual(double other) {
-        return false;
-    }
-
-    @Override
-    public Boolean greater(double other) {
-        return false;
-    }
-
-    @Override
-    public Boolean greaterEqual(double other) {
-        return false;
-    }
-
-    @Override
-    public Boolean pLessEqual(double other) {
-        return false;
-    }
-
-    @Override
-    public Boolean pGreaterEqual(double other) {
-        return false;
     }
 
     @Override
@@ -400,16 +334,6 @@ public class MultiIntervals implements Intervals {
     }
 
     @Override
-    public Boolean contains(double value) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public Boolean contains(Interval other) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
     public double pLess(double other) {
         return 0;
     }
@@ -417,5 +341,65 @@ public class MultiIntervals implements Intervals {
     @Override
     public double pGreater(double other) {
         return 0;
+    }
+
+    @Override
+    public boolean less(Interval other) {
+        return false;
+    }
+
+    @Override
+    public boolean lessEqual(Interval other) {
+        return false;
+    }
+
+    @Override
+    public boolean greater(Interval other) {
+        return false;
+    }
+
+    @Override
+    public boolean greaterEqual(Interval other) {
+        return false;
+    }
+
+    @Override
+    public boolean pLessEqual(Interval other) {
+        return false;
+    }
+
+    @Override
+    public boolean pGreaterEqual(Interval other) {
+        return false;
+    }
+
+    @Override
+    public boolean less(double other) {
+        return false;
+    }
+
+    @Override
+    public boolean lessEqual(double other) {
+        return false;
+    }
+
+    @Override
+    public boolean greater(double other) {
+        return false;
+    }
+
+    @Override
+    public boolean greaterEqual(double other) {
+        return false;
+    }
+
+    @Override
+    public boolean pLessEqual(double other) {
+        return false;
+    }
+
+    @Override
+    public boolean pGreaterEqual(double other) {
+        return false;
     }
 }
