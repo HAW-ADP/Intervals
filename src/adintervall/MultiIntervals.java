@@ -273,7 +273,7 @@ public class MultiIntervals implements Intervals {
                 result.add(i1.intersection(other));
             }
         }
-        return collapse(result);
+        return FactoryInterval.createInterval(result);
     }
 
     @Override
@@ -292,7 +292,7 @@ public class MultiIntervals implements Intervals {
             for (Interval i : intervals) {
                 result.add(i.difference(other));
             }
-            return collapse(result);
+            return FactoryInterval.createInterval(result);
         }
     }
 
@@ -406,51 +406,6 @@ public class MultiIntervals implements Intervals {
     private Interval collapse(HashSet<Interval> intervals) {
         // We got a hashset. And we want to stay immutable.
         return collapse(new LinkedList<Interval>(intervals));
-    }
-
-    private Interval collapse(LinkedList<Interval> intervals) {
-        // We order all our intervals. Then we iterate:
-        // If we find a gap, we push what we've got.
-        // Else, we expand the bounds making them one larger interval.
-        Collections.sort(intervals, new Comparator<Interval>() {
-
-            public int compare(Interval arg0, Interval arg1) {
-                return Double.compare(arg0.getLowerBound(), arg1.getLowerBound());
-            }
-        });
-        LinkedList<Interval> result = new LinkedList<Interval>();
-        Double lbound = null;
-        Double ubound = null;
-        for (Interval i : intervals) {
-            if (i == Interval.emptyInterval) {
-                continue;
-            } else if (i == Interval.NaI) {
-                return i;
-            } else if (i == Interval.realInterval) {
-                return i;
-            } else if (ubound == null || ubound < i.getLowerBound()) {
-                if (ubound != null) {
-                    result.push(new NormalInterval(lbound, ubound));
-                }
-                lbound = i.getLowerBound();
-                ubound = i.getUpperBound();
-            } else if (ubound < i.getUpperBound()) {
-                ubound = i.getUpperBound();
-            }
-        }
-        // Don't forget about the last part!
-        if (ubound != null) {
-            result.push(new NormalInterval(lbound, ubound));
-        }
-        // Here comes the part that lets us return Interval instead of Intervals
-        if (result.size() == 0) {
-            return Interval.emptyInterval;
-        } else if (result.size() == 1) {
-            return result.get(0);
-        } else // We are the only function in the code allowed to do this.
-        {
-            return new MultiIntervals(result);
-        }
     }
 
     @Override
