@@ -9,22 +9,20 @@ public class MultiIntervals implements Intervals {
     // As Intervals is an Interval, and we might return an Interval, always use Interval as return value
     // As Intervals is an Interval, and functions might be given an Intervals as an Interval, and an explicit
     // supertype cast might be given, we probably need to extend the supertype function instead.
-
     public MultiIntervals(Collection<? extends Interval> col) {
         this.intervals = new HashSet<>(col);
     }
-    
-    
+
     @Override
     public Set<Interval> getIntervals() {
         return ((Set<Interval>) ((HashSet) intervals).clone());
     }
 
-        // Luciano, Gregor begin
+    // Luciano, Gregor begin
     @Override
     public double getLowerBound() {
         Object[] d = this.getIntervals().toArray();
-        double minLowerBound = ((Interval)d[0]).getLowerBound();
+        double minLowerBound = ((Interval) d[0]).getLowerBound();
 
         for (Interval i : this.getIntervals()) {
             if (i.getLowerBound() < minLowerBound) {
@@ -37,7 +35,7 @@ public class MultiIntervals implements Intervals {
     @Override
     public double getUpperBound() {
         Object[] d = this.getIntervals().toArray();
-        double maxUpperBound = ((Interval)d[0]).getUpperBound();
+        double maxUpperBound = ((Interval) d[0]).getUpperBound();
 
         for (Interval i : this.getIntervals()) {
             if (i.getUpperBound() > maxUpperBound) {
@@ -81,12 +79,15 @@ public class MultiIntervals implements Intervals {
 //        }
 //        return true;
 //    }
-
     @Override
     public boolean equals(Object other) {
-        if (this == other) return true;
-        if (!(other instanceof Intervals)) return false;
-        Intervals oth = (Intervals)other;
+        if (this == other) {
+            return true;
+        }
+        if (!(other instanceof Intervals)) {
+            return false;
+        }
+        Intervals oth = (Intervals) other;
         if (this.getIntervals().size() != oth.getIntervals().size()) {
             return false;
         }
@@ -132,33 +133,71 @@ public class MultiIntervals implements Intervals {
     }
 
     @Override
-    public Interval plus(Interval other) {
-        // TODO Auto-generated method stub
-        return null;
+    public Interval plus(Intervals other) {
+        HashSet<Interval> ergebnis = new HashSet<Interval>();
+        for (Interval iv1 : this) {
+            for (Interval iv2 : other) {
+                ergebnis.add(iv1.plus(iv2));
+            }
+        }
+        return FactoryInterval.createInterval(ergebnis);
+    }
+
+    public Interval minus(Intervals other) {
+        HashSet<Interval> ergebnis = new HashSet<Interval>();
+        for (Interval iv1 : this) {
+            for (Interval iv2 : other) {
+                ergebnis.add(iv1.minus(iv2));
+            }
+        }
+        return FactoryInterval.createInterval(ergebnis);
     }
 
     @Override
+    public Interval multi(Intervals other) {
+        HashSet<Interval> ergebnis = new HashSet<Interval>();
+        for (Interval iv1 : this) {
+            for (Interval iv2 : other) {
+                ergebnis.add(iv1.multi(iv2));
+            }
+        }
+        return FactoryInterval.createInterval(ergebnis);
+    }
+
+    @Override
+    public Interval plus(Interval other) {
+        HashSet<Interval> ergebnis = new HashSet<Interval>();
+        for (Interval iv : this) {
+            ergebnis.add(iv.plus(other));
+        }
+        return FactoryInterval.createInterval(ergebnis);
+    }
+
     public Interval minus(Interval other) {
-        // TODO Auto-generated method stub
-        return null;
+        HashSet<Interval> ergebnis = new HashSet<Interval>();
+        for (Interval iv : this) {
+            ergebnis.add(iv.minus(other));
+        }
+        return FactoryInterval.createInterval(ergebnis);
     }
 
     @Override
     public Interval multi(Interval other) {
-        // TODO Auto-generated method stub
-        return null;
+       HashSet<Interval> ergebnis = new HashSet<Interval>();
+        for (Interval iv : this) {
+            ergebnis.add(iv.multi(other));
+        }
+        return FactoryInterval.createInterval(ergebnis);
     }
 
     @Override
     public Interval div(Interval other) {
-        // TODO Auto-generated method stub
-        return null;
+        return NaI;
     }
 
     @Override
     public Interval square() {
-        // TODO Auto-generated method stub
-        return null;
+        return NaI;
     }
 
     @Override
@@ -174,50 +213,57 @@ public class MultiIntervals implements Intervals {
 
     @Override
     public Interval plus(double other) {
-        // TODO Auto-generated method stub
-        return null;
+        return this.plus(FactoryInterval.createInterval(other, other));
     }
 
     @Override
     public Interval minus(double other) {
-        // TODO Auto-generated method stub
-        return null;
-    }
+        return this.minus(FactoryInterval.createInterval(other, other));
+    }	
 
     @Override
     public Interval multi(double other) {
-        // TODO Auto-generated method stub
-        return null;
+        return this.multi(FactoryInterval.createInterval(other, other));
     }
 
     @Override
     public Interval div(double other) {
-        // TODO Auto-generated method stub
-        return null;
+        return NaI;
     }
 
     @Override
+    public Interval plusKom(Interval other) {
+       	return other.plus(this); 
+    }
+    
+    @Override
+    public Interval minusKom(Interval other) {
+       	return other.minus(this); 
+    }
+      
+    @Override
+    public Interval multiKom(Interval other) {
+       	return other.multi(this); 
+    }
+    
+    @Override
     public Interval plusKom(double other) {
-        // TODO Auto-generated method stub
-        return null;
+  	return FactoryInterval.createInterval(other, other).plus(this);
     }
 
     @Override
     public Interval minusKom(double other) {
-        // TODO Auto-generated method stub
-        return null;
+     	return FactoryInterval.createInterval(other, other).minus(this);
     }
 
     @Override
     public Interval multiKom(double other) {
-        // TODO Auto-generated method stub
-        return null;
+  	return FactoryInterval.createInterval(other, other).multi(this);
     }
 
     @Override
     public Interval divKom(double other) {
-        // TODO Auto-generated method stub
-        return null;
+        return NaI;
     }
 
     @Override
@@ -387,7 +433,7 @@ public class MultiIntervals implements Intervals {
         // TODO Auto-generated method stub
         return null;
     }
-    
+
     @Override
     public Iterator<Interval> iterator() {
         return intervals.iterator();
@@ -447,5 +493,35 @@ public class MultiIntervals implements Intervals {
         {
             return new MultiIntervals(result);
         }
+    }
+
+    @Override
+    public Interval plus(Intervals other) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public Interval minus(Intervals other) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public Interval multi(Intervals other) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public Interval union(double other) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public Interval intersection(double other) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public Interval difference(double other) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }
