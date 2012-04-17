@@ -8,8 +8,8 @@ public interface Interval {
     // Literale
     Interval zeroInterval = new NormalInterval(0.0, 0.0);
     Interval oneInterval = new NormalInterval(1.0, 1.0);
-    Interval NaI = new NormalInterval(NaN, NaN);
-    Interval realInterval = new NormalInterval(NEGATIVE_INFINITY, POSITIVE_INFINITY);
+    Interval NaI = new NormalInterval(Double.NaN, Double.NaN);
+    Interval realInterval = new NormalInterval(Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY);
     Interval emptyInterval = new MultiIntervals(new LinkedList<Interval>());
     
     // accessor
