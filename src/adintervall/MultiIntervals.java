@@ -58,29 +58,30 @@ public class MultiIntervals implements Intervals {
         return length;
     }
 
-//    @Override
-//    public Boolean contains(double value) {
-//        for (Interval i : this.getIntervals()) {
-//            if (i.contains(value)) return true;
-//        }
-//        return false;
-//    }
-//
-//    @Override
-//    public Boolean contains(Interval value) {
-//        for (Interval i : this.getIntervals()) {
-//            if (i.contains(value)) return true;
-//        }
-//        return false;
-//    }
-//
-//    @Override
-//    public Boolean contains(Intervals value) {
-//        for (Interval i : this.getIntervals()) {
-//            if (!this.contains(i)) return false;
-//        }
-//        return true;
-//    }
+    @Override
+    public Boolean contains(double other) {
+        for (Interval i : this.intervals) {
+            if (i.contains(other)) return true;
+        }
+        return false;
+    }
+
+    @Override
+    public Boolean contains(Interval other) {
+        for (Interval i : this.intervals) {
+            if (i.contains(other)) return true;
+        }
+        return false;
+    }
+
+    @Override
+    public Boolean contains(Intervals other) {
+        for (Interval i : other) {
+            if (!this.contains(i)) return false;
+        }
+        return true;
+    }
+
 
     @Override
     public boolean equals(Object other) {
@@ -159,17 +160,6 @@ public class MultiIntervals implements Intervals {
     public Interval square() {
         // TODO Auto-generated method stub
         return null;
-    }
-
-    @Override
-    public Boolean contains(double value) {
-        // If any of our intervals contains the value, we contain it.
-        for (Interval i : intervals) {
-            if (i.contains(value)) {
-                return true;
-            }
-        }
-        return false;
     }
 
     @Override
@@ -268,27 +258,6 @@ public class MultiIntervals implements Intervals {
                 result.add(i.difference(other));
             }
             return collapse(result);
-        }
-    }
-
-    @Override
-    public Boolean contains(Interval other) {
-        // If other is an intervals, any of them must be contained. Using the same method.
-        // Otherwise checks if any of our intervals contains other.
-        if (other instanceof Intervals) {
-            for (Interval i : (Intervals) other) {
-                if (!contains(i)) {
-                    return false;
-                }
-            }
-            return true;
-        } else {
-            for (Interval i : intervals) {
-                if (i.contains(other)) {
-                    return true;
-                }
-            }
-            return false;
         }
     }
 
