@@ -20,31 +20,91 @@ public class MultiIntervals implements Intervals {
         return ((Set<Interval>) ((HashSet) intevals).clone());
     }
 
+        // Luciano, Gregor begin
     @Override
     public double getLowerBound() {
-        // The lower bound is the lowest lower bound in our interval set
-        double lbound = Double.POSITIVE_INFINITY;
-        for (Interval i : intevals) {
-            lbound = Math.min(lbound, i.getLowerBound());
+        Object[] d = this.getIntervals().toArray();
+        double minLowerBound = ((Interval)d[0]).getLowerBound();
+
+        for (Interval i : this.getIntervals()) {
+            if (i.getLowerBound() < minLowerBound) {
+                minLowerBound = i.getLowerBound();
+            }
         }
-        return lbound;
+        return minLowerBound;
     }
 
     @Override
     public double getUpperBound() {
-        // The upper bound is the highest upper bound in our interval set
-        double ubound = Double.NEGATIVE_INFINITY;
-        for (Interval i : intevals) {
-            ubound = Math.min(ubound, i.getLowerBound());
+        Object[] d = this.getIntervals().toArray();
+        double maxUpperBound = ((Interval)d[0]).getUpperBound();
+
+        for (Interval i : this.getIntervals()) {
+            if (i.getUpperBound() > maxUpperBound) {
+                maxUpperBound = i.getUpperBound();
+            }
         }
-        return ubound;
+        return maxUpperBound;
     }
 
     @Override
+    public double length() {
+        double length = 0.0;
+
+        for (Interval i : this.getIntervals()) {
+            length += i.length();
+        }
+
+        return length;
+    }
+
+//    @Override
+//    public Boolean contains(double value) {
+//        for (Interval i : this.getIntervals()) {
+//            if (i.contains(value)) return true;
+//        }
+//        return false;
+//    }
+//
+//    @Override
+//    public Boolean contains(Interval value) {
+//        for (Interval i : this.getIntervals()) {
+//            if (i.contains(value)) return true;
+//        }
+//        return false;
+//    }
+//
+//    @Override
+//    public Boolean contains(Intervals value) {
+//        for (Interval i : this.getIntervals()) {
+//            if (!this.contains(i)) return false;
+//        }
+//        return true;
+//    }
+
+    @Override
     public boolean equals(Object other) {
-        // TODO Auto-generated method stub
+        if (this == other) return true;
+        if (!(other instanceof Intervals)) return false;
+        Intervals oth = (Intervals)other;
+        if (this.getIntervals().size() != oth.getIntervals().size()) {
+            return false;
+        }
+
+        for (Interval i : this.getIntervals()) {
+            Boolean equals = false;
+            for (Interval j : oth.getIntervals()) {
+                if (i.equals(j)) {
+                    equals = true;
+                }
+            }
+            if (!equals) {
+                return false;
+            }
+        }
         return true;
     }
+    //Luciano, Gregor end
 
     @Override
     public boolean notEquals(Object other) {
@@ -69,16 +129,6 @@ public class MultiIntervals implements Intervals {
     public int hashCode() {
         // Arrays and lists have a great hashCode implementation.
         return intevals.hashCode();
-    }
-
-    @Override
-    public double length() {
-        // Given our interval is collapsed, then our length is the sum of all our intervalls' length.
-        double length = 0;
-        for (Interval i : intevals) {
-            length += i.length();
-        }
-        return length;
     }
 
     @Override
@@ -173,7 +223,6 @@ public class MultiIntervals implements Intervals {
     @Override
     public Interval union(Interval other) {
         // We join our interval with the other.
-        @SuppressWarnings("unchecked")
         Set<Interval> result = getIntervals();
         if (other instanceof Intervals) {
             for (Interval i : (Intervals) other) {

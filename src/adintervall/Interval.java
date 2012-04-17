@@ -7,8 +7,7 @@ public interface Interval {
     public static final double NaN = Double.NaN; // 0.0d / 0.0;
     public static final double NEGATIVE_INFINITY = Double.NEGATIVE_INFINITY; // -1.0 / 0.0;
     public static final double POSITIVE_INFINITY = Double.POSITIVE_INFINITY; // 1.0 / 0.0;
-	public static final Interval emptyInterval = new MultiIntervals(new LinkedList<Interval>()); //TODO set this to something reasonable
-    
+    public static final Interval emptyInterval = new MultiIntervals(new LinkedList<Interval>()); //TODO set this to something reasonable
     // Literale
     Interval zeroInterval = new NormalInterval(0.0, 0.0);
     Interval oneInterval = new NormalInterval(1.0, 1.0);
@@ -22,12 +21,11 @@ public interface Interval {
 
     @Override
     boolean equals(Object other);
-    
+
     boolean notEquals(Object other);
-            
+
     double length();
 
-    
     //producer
     Interval plus(Interval other);
 
@@ -36,32 +34,29 @@ public interface Interval {
     Interval multi(Interval other);
 
     Interval div(Interval other);
-    
+
     Interval square();
-    
-    
+
     //double operations
     Boolean contains(double value);
-    
+
     Interval plus(double other);
 
     Interval minus(double other);
 
     Interval multi(double other);
-    
-    Interval div (double other);
 
-    
+    Interval div(double other);
+
     //commutative operations
     Interval plusKom(double other);
 
     Interval minusKom(double other);
 
     Interval multiKom(double other);
-    
-    Interval divKom (double other);
-    
-    
+
+    Interval divKom(double other);
+
     //set operations
     Interval union(Interval other);
 
@@ -69,7 +64,6 @@ public interface Interval {
 
     Interval difference(Interval other);
 
-    
     //Vergleiche
     Boolean contains(Interval other);
 
@@ -88,7 +82,7 @@ public interface Interval {
     Boolean pGreater(Interval other);
 
     Boolean pGreaterEqual(Interval other);
-    
+
     Boolean less(double other);
 
     Boolean lessEqual(double other);
