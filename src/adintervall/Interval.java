@@ -1,11 +1,13 @@
 package adintervall;
 
+import java.util.LinkedList;
+
 public interface Interval {
 
     public static final double NaN = Double.NaN; // 0.0d / 0.0;
     public static final double NEGATIVE_INFINITY = Double.NEGATIVE_INFINITY; // -1.0 / 0.0;
     public static final double POSITIVE_INFINITY = Double.POSITIVE_INFINITY; // 1.0 / 0.0;
-	public static final Interval emptyInterval = null; //TODO set this to something reasonable
+	public static final Interval emptyInterval = new MultiIntervals(new LinkedList<Interval>()); //TODO set this to something reasonable
     
     // Literale
     Interval zeroInterval = new NormalInterval(0.0, 0.0);

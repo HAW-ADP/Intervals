@@ -60,19 +60,19 @@ public class ADIntervalTest {
     	assertTrue(nai.union(m1) == nai);
     	
     	//union(m1, realInterval) = realInterval
-    	assertTrue(m1.union(real).equals(real));
+    	assertEquals(real, m1.union(real));
     	
     	//union(union(m1,m2),m3) = union(m1,union(m2,m3))    	
-    	assertTrue((m1.union(m2)).union(m3).equals( m1.union(m2.union(m3))));
+    	assertEquals((m1.union(m2)).union(m3),m1.union(m2.union(m3)));
     	
     	//union(m1,m2) = union(m2,m1)
-    	assertTrue(m1.union(m2).equals(m2.union(m1)));
+    	assertEquals(m1.union(m2), m2.union(m1));
     	
     	//union(m1,m1) = m1
-    	assertTrue(m1.union(m1).equals(m1));
+    	assertEquals(m1, m1.union(m1));
     	
     	//union(i1,4) = [[1,2][4]] = m1
-    	assertTrue(m1.equals(i1.union(FactoryInterval.createInterval(d4))));
+    	assertEquals(m1, i1.union(FactoryInterval.createInterval(d4)));
     }
     
     @Test
@@ -82,21 +82,21 @@ public class ADIntervalTest {
     	System.out.println("Ergebnis: "+m1.intersection(m1));
     	
     	//intersection(NaI, m1) = intersection(m1, NaI) ) NaI
-    	assertTrue(m1.intersection(nai).equals(nai));
-    	assertTrue(nai.intersection(m1).equals(nai));
+    	assertEquals(nai, m1.intersection(nai));
+    	assertEquals(nai, nai.intersection(m1));
     	
     	//intersection(real, m1) = intersection(m1, real) = m1
-    	assertTrue(m1.intersection(real).equals(m1));
-    	assertTrue(real.intersection(m1).equals(m1));
+    	assertEquals(m1, m1.intersection(real));
+    	assertEquals(m1, real.intersection(m1));
     	
     	//intersection(m1,intersection(m2,m3)) = intersection(intersection(m1,m2),m3)
-    	assertTrue(m1.intersection(m2.intersection(m3)).equals((m1.intersection(m2)).intersection(m3)));
+    	assertEquals(m1.intersection(m2.intersection(m3)), (m1.intersection(m2)).intersection(m3));
     	
     	//intersection(m1,m2) = intersection(m2,m1)
-    	assertTrue(m1.intersection(m2).equals(m2.intersection(m1)));
+    	assertEquals(m1.intersection(m2), m2.intersection(m1));
     	
     	//intersection(m1,m1) = m1
-    	assertTrue(m1.intersection(m1).equals(m1));
+    	assertEquals(m1, m1.intersection(m1));
     }
 
 }

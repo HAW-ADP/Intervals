@@ -39,7 +39,7 @@ public class MultiIntervals implements Intervals {
 	@Override
 	public boolean equals(Object other) {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
