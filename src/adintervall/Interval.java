@@ -116,4 +116,6 @@ public interface Interval {
 	Interval intersection(Intervals other);
 
 	Interval difference(Intervals other);
+
+	Interval div(Intervals other);
 }
