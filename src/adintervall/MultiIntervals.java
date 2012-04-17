@@ -122,64 +122,6 @@ public class MultiIntervals implements Intervals {
     }
 
     @Override
-    public Interval plus(Intervals other) {
-        HashSet<Interval> ergebnis = new HashSet<Interval>();
-        for (Interval iv1 : this) {
-            for (Interval iv2 : other) {
-                ergebnis.add(iv1.plus(iv2));
-            }
-        }
-        return FactoryInterval.createInterval(ergebnis);
-    }
-
-    public Interval minus(Intervals other) {
-        HashSet<Interval> ergebnis = new HashSet<Interval>();
-        for (Interval iv1 : this) {
-            for (Interval iv2 : other) {
-                ergebnis.add(iv1.minus(iv2));
-            }
-        }
-        return FactoryInterval.createInterval(ergebnis);
-    }
-
-    @Override
-    public Interval multi(Intervals other) {
-        HashSet<Interval> ergebnis = new HashSet<Interval>();
-        for (Interval iv1 : this) {
-            for (Interval iv2 : other) {
-                ergebnis.add(iv1.multi(iv2));
-            }
-        }
-        return FactoryInterval.createInterval(ergebnis);
-    }
-
-    @Override
-    public Interval plus(Interval other) {
-        HashSet<Interval> ergebnis = new HashSet<Interval>();
-        for (Interval iv : this) {
-            ergebnis.add(iv.plus(other));
-        }
-        return FactoryInterval.createInterval(ergebnis);
-    }
-
-    public Interval minus(Interval other) {
-        HashSet<Interval> ergebnis = new HashSet<Interval>();
-        for (Interval iv : this) {
-            ergebnis.add(iv.minus(other));
-        }
-        return FactoryInterval.createInterval(ergebnis);
-    }
-
-    @Override
-    public Interval multi(Interval other) {
-       HashSet<Interval> ergebnis = new HashSet<Interval>();
-        for (Interval iv : this) {
-            ergebnis.add(iv.multi(other));
-        }
-        return FactoryInterval.createInterval(ergebnis);
-    }
-
-    @Override
     public Interval div(Interval other) {
         return NaI;
     }
@@ -188,21 +130,6 @@ public class MultiIntervals implements Intervals {
     public Interval square() {
         // TODO Auto-generated method stub
         return null;
-    }
-
-    @Override
-    public Interval plus(double other) {
-        return this.plus(FactoryInterval.createInterval(other, other));
-    }
-
-    @Override
-    public Interval minus(double other) {
-        return this.minus(FactoryInterval.createInterval(other, other));
-    }
-
-    @Override
-    public Interval multi(double other) {
-        return this.multi(FactoryInterval.createInterval(other, other));
     }
 
     @Override
@@ -398,21 +325,6 @@ public class MultiIntervals implements Intervals {
     }
 
     @Override
-    public Interval plus(Intervals other) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public Interval minus(Intervals other) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public Interval multi(Intervals other) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
     public Interval union(double other) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
@@ -425,5 +337,74 @@ public class MultiIntervals implements Intervals {
     @Override
     public Interval difference(double other) {
         throw new UnsupportedOperationException("Not supported yet.");
+    }
+    
+    @Override
+    public Interval plus(Interval other) {
+        Set<Interval> ergebnis = new HashSet<Interval>();
+
+        if (other instanceof Intervals) {
+            for (Interval iv1 : this) {
+                for (Interval iv2 : (Intervals) other) {
+                    ergebnis.add(iv1.plus(iv2));
+                }
+            }
+        } else {
+            for (Interval iv : this) {
+                ergebnis.add(iv.plus(other));
+            }
+        }
+        return FactoryInterval.createInterval(ergebnis);
+    }
+
+    @Override
+    public Interval plus(double other) {
+        return this.plus(FactoryInterval.createInterval(other, other));
+    }
+
+    public Interval minus(Interval other) {
+        Set<Interval> ergebnis = new HashSet<Interval>();
+
+        if (other instanceof Intervals) {
+            for (Interval iv1 : this) {
+                for (Interval iv2 : (Intervals) other) {
+                    ergebnis.add(iv1.minus(iv2));
+                }
+            }
+        } else {
+            for (Interval iv : this) {
+                ergebnis.add(iv.minus(other));
+            }
+        }
+        return FactoryInterval.createInterval(ergebnis);
+    }
+
+    @Override
+    public Interval minus(double other) {
+        return this.minus(FactoryInterval.createInterval(other, other));
+    }
+
+    @Override
+    public Interval multi(Interval other) {
+        Set<Interval> ergebnis = new HashSet<Interval>();
+
+        if (other instanceof Intervals) {
+            for (Interval iv1 : this) {
+                for (Interval iv2 : (Intervals) other) {
+                    ergebnis.add(iv1.multi(iv2));
+                }
+            }
+        } else {
+            for (Interval iv : this) {
+                ergebnis.add(iv.multi(other));
+            }
+        }
+        return FactoryInterval.createInterval(ergebnis);
+    }
+
+
+    @Override
+    public Interval multi(double other) {
+        return this.multi(FactoryInterval.createInterval(other, other));
     }
 }
