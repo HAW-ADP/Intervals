@@ -110,4 +110,12 @@ public interface Interval {
     double pGreater(double other);
 
     Boolean pGreaterEqual(double other);
+
+	Interval union(Intervals other);
+
+	Interval intersection(Intervals other);
+
+	Interval difference(Intervals other);
+
+	Interval div(Intervals other);
 }
