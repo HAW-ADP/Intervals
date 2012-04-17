@@ -111,11 +111,5 @@ public interface Interval {
 
     Boolean pGreaterEqual(double other);
 
-    Interval union(Intervals other);
-
-    Interval intersection(Intervals other);
-
-    Interval difference(Intervals other);
-
     Interval div(Intervals other);
 }

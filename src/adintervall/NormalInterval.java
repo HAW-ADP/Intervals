@@ -177,25 +177,28 @@ public class NormalInterval implements Interval{
             return Interval.NaI;
         }
        
-        if (this.getLowerBound() > other.getUpperBound() || this.getUpperBound() < other.getLowerBound()) {
-        	return createInterval(Arrays.asList(new Interval[]{createInterval(this.getLowerBound(), this.getUpperBound()), createInterval(other.getLowerBound(), other.getUpperBound())}));
-        }
-        double a, b;
-
-        if (this.getLowerBound() < other.getLowerBound()) {
-            a = this.getLowerBound();
-        } else {
-            a = other.getLowerBound();
-        }
-
-        if (this.upperbound > other.getUpperBound()) {
-            b = this.getUpperBound();
-        } else {
-            b = other.getUpperBound();
-        }
-
-        return createInterval(a, b);
-
+       	if(other instanceof Intervals) {
+       		return other.union(this);
+       	}else{
+	        if (this.getLowerBound() > other.getUpperBound() || this.getUpperBound() < other.getLowerBound()) {
+	        	return createInterval(Arrays.asList(new Interval[]{createInterval(this.getLowerBound(), this.getUpperBound()), createInterval(other.getLowerBound(), other.getUpperBound())}));
+	        }
+	        double a, b;
+	
+	        if (this.getLowerBound() < other.getLowerBound()) {
+	            a = this.getLowerBound();
+	        } else {
+	            a = other.getLowerBound();
+	        }
+	
+	        if (this.upperbound > other.getUpperBound()) {
+	            b = this.getUpperBound();
+	        } else {
+	            b = other.getUpperBound();
+	        }
+	
+	        return createInterval(a, b);
+       	}
     }
 
     @Override
@@ -204,25 +207,28 @@ public class NormalInterval implements Interval{
             return Interval.NaI;
         }
 
-        double a, b;
-
-        if (this.getLowerBound() > other.getLowerBound()) {
-            a = this.getLowerBound();
-        } else {
-            a = other.getLowerBound();
-        }
-
-        if (this.upperbound < other.getUpperBound()) {
-            b = this.getUpperBound();
-        } else {
-            b = other.getUpperBound();
-        }
-
-        if (a <= b) {
-            return createInterval(a, b);
-        }
-        return Interval.NaI;
-
+       if(other instanceof Intervals) {
+    	   return other.intersection(this);
+       }else{
+	        double a, b;
+	
+	        if (this.getLowerBound() > other.getLowerBound()) {
+	            a = this.getLowerBound();
+	        } else {
+	            a = other.getLowerBound();
+	        }
+	
+	        if (this.upperbound < other.getUpperBound()) {
+	            b = this.getUpperBound();
+	        } else {
+	            b = other.getUpperBound();
+	        }
+	
+	        if (a <= b) {
+	            return createInterval(a, b);
+	        }
+	        return Interval.NaI;
+       }
     }
 
     @Override
@@ -454,29 +460,6 @@ public class NormalInterval implements Interval{
 
 	@Override
 	public Interval div(Intervals other) {
-		return NaI;
-	}
-
-	@Override
-	public Interval union(Intervals other) {
-	       if (other == null || this == Interval.NaI || other == Interval.NaI  ) {
-	            return Interval.NaI;
-	        }
-	       
-			return other.union(this);
-	}
-
-	@Override
-	public Interval intersection(Intervals other) {
-	       if (other == null || this == Interval.NaI || other == Interval.NaI  ) {
-	            return Interval.NaI;
-	        }
-	       
-			return other.intersection(this);
-	}
-
-	@Override
-	public Interval difference(Intervals other) {
 		return NaI;
 	}
 }
