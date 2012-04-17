@@ -109,8 +109,7 @@ public class MultiIntervals implements Intervals {
 
     @Override
     public boolean notEquals(Object other) {
-        // TODO Auto-generated method stub
-        return false;
+        return !this.equals(other);
     }
 
     @Override
