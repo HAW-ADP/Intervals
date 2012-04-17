@@ -203,7 +203,6 @@ public class TestMultiInterval extends TestCase {
     }
     //Carola end
     
-    @Test
     public void test_union() {
     	
     	//NaI is always NaI
@@ -226,7 +225,6 @@ public class TestMultiInterval extends TestCase {
     	assertEquals(mi1_3, i0_1.union(FactoryInterval.createInterval(d4)));
     }
     
-    @Test
     public void test_intersection() {
     	//intersection(NaI, m1) = intersection(m1, NaI) ) NaI
     	assertTrue(nai == mi1_3.intersection(nai));
@@ -245,8 +243,8 @@ public class TestMultiInterval extends TestCase {
     	//intersection(m1,m1) = m1
     	assertEquals(mi1_3, mi1_3.intersection(mi1_3));
     }
-
-    @Test
+    
+    
     public void test_intersectionUnion() {
     	//union(m1, intersection(m1,m2)) = m1
     	assertEquals(mi1_3, mi1_3.union(mi1_3.intersection(mi1_5)));
