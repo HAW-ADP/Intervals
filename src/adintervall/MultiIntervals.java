@@ -20,6 +20,10 @@ public class MultiIntervals implements Intervals {
 
     @Override
     public double getLowerBound() {
+        if (this.intervals.isEmpty()) {
+            return Double.NaN;
+        }
+
         double lbound = Double.POSITIVE_INFINITY;
         for (Interval i : intervals) {
             lbound = Math.min(lbound, i.getLowerBound());
@@ -29,6 +33,10 @@ public class MultiIntervals implements Intervals {
 
     @Override
     public double getUpperBound() {
+        if (this.intervals.isEmpty()) {
+            return Double.NaN;
+        }
+
         double ubound = Double.NEGATIVE_INFINITY;
         for (Interval i : intervals) {
             ubound = Math.min(ubound, i.getLowerBound());
@@ -47,29 +55,35 @@ public class MultiIntervals implements Intervals {
         return length;
     }
 
-// @Override
-// public Boolean contains(double value) {
-// for (Interval i : this.getIntervals()) {
-// if (i.contains(value)) return true;
-// }
-// return false;
-// }
-//
-// @Override
-// public Boolean contains(Interval value) {
-// for (Interval i : this.getIntervals()) {
-// if (i.contains(value)) return true;
-// }
-// return false;
-// }
-//
-// @Override
-// public Boolean contains(Intervals value) {
-// for (Interval i : this.getIntervals()) {
-// if (!this.contains(i)) return false;
-// }
-// return true;
-// }
+    @Override
+    public boolean contains(double other) {
+        for (Interval i : this.getIntervals()) {
+            if (i.contains(other)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean contains(Interval other) {
+        if (other instanceof Intervals) {
+            for (Interval i : ((Intervals) other).getIntervals()) {
+                if (!this.contains(i)) {
+                    return false;
+                }
+            }
+            return true;
+        } else {
+            for (Interval i : this.getIntervals()) {
+                if (i.equals(other)) {
+                    return true;
+                }
+            }
+            return false;
+        }
+    }
+
     @Override
     public boolean equals(Object other) {
         if (this == other) {
@@ -137,34 +151,31 @@ public class MultiIntervals implements Intervals {
         return NaI;
     }
 
-    @Override
     public Interval plusKom(Interval other) {
         return other.plus(this);
     }
-    
-    @Override
+
     public Interval minusKom(Interval other) {
         return other.minus(this);
     }
-      
-    @Override
+
     public Interval multiKom(Interval other) {
         return other.multi(this);
     }
-    
+
     @Override
     public Interval plusKom(double other) {
-   return FactoryInterval.createInterval(other, other).plus(this);
+        return FactoryInterval.createInterval(other, other).plus(this);
     }
 
     @Override
     public Interval minusKom(double other) {
-      return FactoryInterval.createInterval(other, other).minus(this);
+        return FactoryInterval.createInterval(other, other).minus(this);
     }
 
     @Override
     public Interval multiKom(double other) {
-   return FactoryInterval.createInterval(other, other).multi(this);
+        return FactoryInterval.createInterval(other, other).multi(this);
     }
 
     @Override
@@ -224,104 +235,18 @@ public class MultiIntervals implements Intervals {
     }
 
     @Override
-    public Boolean less(Interval other) {
-        // TODO Auto-generated method stub
-        return null;
+    public double pLess(Interval other) {
+        return 0;
     }
 
     @Override
-    public Boolean lessEqual(Interval other) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public Boolean greater(Interval other) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public Boolean greaterEqual(Interval other) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public Boolean pLess(Interval other) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public Boolean pLessEqual(Interval other) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public Boolean pGreater(Interval other) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public Boolean pGreaterEqual(Interval other) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public Boolean less(double other) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public Boolean lessEqual(double other) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public Boolean greater(double other) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public Boolean greaterEqual(double other) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public Boolean pLess(double other) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public Boolean pLessEqual(double other) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public Boolean pGreater(double other) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public Boolean pGreaterEqual(double other) {
-        // TODO Auto-generated method stub
-        return null;
+    public double pGreater(Interval other) {
+        return 0;
     }
 
     @Override
     public Iterator<Interval> iterator() {
-        return intervals.iterator();
+        return getIntervals().iterator();
     }
 
     @Override
@@ -338,7 +263,7 @@ public class MultiIntervals implements Intervals {
     public Interval difference(double other) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-    
+
     @Override
     public Interval plus(Interval other) {
         Set<Interval> ergebnis = new HashSet<Interval>();
@@ -362,8 +287,9 @@ public class MultiIntervals implements Intervals {
         return this.plus(FactoryInterval.createInterval(other, other));
     }
 
+    @Override
     public Interval minus(Interval other) {
-        Set<Interval> ergebnis = new HashSet<Interval>();
+        Set<Interval> ergebnis = new HashSet<>();
 
         if (other instanceof Intervals) {
             for (Interval iv1 : this) {
@@ -386,7 +312,7 @@ public class MultiIntervals implements Intervals {
 
     @Override
     public Interval multi(Interval other) {
-        Set<Interval> ergebnis = new HashSet<Interval>();
+        Set<Interval> ergebnis = new HashSet<>();
 
         if (other instanceof Intervals) {
             for (Interval iv1 : this) {
@@ -402,9 +328,78 @@ public class MultiIntervals implements Intervals {
         return FactoryInterval.createInterval(ergebnis);
     }
 
-
     @Override
     public Interval multi(double other) {
         return this.multi(FactoryInterval.createInterval(other, other));
+    }
+
+    @Override
+    public double pLess(double other) {
+        return 0;
+    }
+
+    @Override
+    public double pGreater(double other) {
+        return 0;
+    }
+
+    @Override
+    public boolean less(Interval other) {
+        return false;
+    }
+
+    @Override
+    public boolean lessEqual(Interval other) {
+        return false;
+    }
+
+    @Override
+    public boolean greater(Interval other) {
+        return false;
+    }
+
+    @Override
+    public boolean greaterEqual(Interval other) {
+        return false;
+    }
+
+    @Override
+    public boolean pLessEqual(Interval other) {
+        return false;
+    }
+
+    @Override
+    public boolean pGreaterEqual(Interval other) {
+        return false;
+    }
+
+    @Override
+    public boolean less(double other) {
+        return false;
+    }
+
+    @Override
+    public boolean lessEqual(double other) {
+        return false;
+    }
+
+    @Override
+    public boolean greater(double other) {
+        return false;
+    }
+
+    @Override
+    public boolean greaterEqual(double other) {
+        return false;
+    }
+
+    @Override
+    public boolean pLessEqual(double other) {
+        return false;
+    }
+
+    @Override
+    public boolean pGreaterEqual(double other) {
+        return false;
     }
 }

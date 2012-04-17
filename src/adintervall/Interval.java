@@ -36,7 +36,6 @@ public interface Interval {
     Interval square();
 
     //double operations
-    Boolean contains(double value);
 
     Interval plus(double other);
 
@@ -69,38 +68,39 @@ public interface Interval {
     Interval difference(double other);
 
     //Vergleiche
-    Boolean contains(Interval other);
+    boolean contains(double value);
+    boolean contains(Interval other);
+    
+    boolean less(Interval other);
 
-    Boolean less(Interval other);
+    boolean lessEqual(Interval other);
 
-    Boolean lessEqual(Interval other);
+    boolean greater(Interval other);
 
-    Boolean greater(Interval other);
-
-    Boolean greaterEqual(Interval other);
+    boolean greaterEqual(Interval other);
 
     double pLess(Interval other);
 
-    Boolean pLessEqual(Interval other);
+    boolean pLessEqual(Interval other);
 
     double pGreater(Interval other);
 
-    Boolean pGreaterEqual(Interval other);
+    boolean pGreaterEqual(Interval other);
 
-    Boolean less(double other);
+    boolean less(double other);
 
-    Boolean lessEqual(double other);
+    boolean lessEqual(double other);
 
-    Boolean greater(double other);
+    boolean greater(double other);
 
-    Boolean greaterEqual(double other);
+    boolean greaterEqual(double other);
 
     double pLess(double other);
 
-    Boolean pLessEqual(double other);
+    boolean pLessEqual(double other);
 
     double pGreater(double other);
 
-    Boolean pGreaterEqual(double other);
+    boolean pGreaterEqual(double other);
 
 }

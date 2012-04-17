@@ -115,48 +115,12 @@ public class TestMultiInterval extends TestCase {
 
     public void testContainsInterval() {
         assertFalse(mi1_3.contains(i10_13));
-        assertTrue(mi1_3.contains(i6_7));
+        assertTrue(mi1_3.contains(i2_3));
     }
 
     public void testContainsValue() {
         assertTrue(mi1_3.contains(d6));
         assertFalse(mi1_3.contains(d10));
-    }
-
-    public void testEquals() {
-//        TODO
-//        assertTrue(mi1_3.contains(d6));
-//        assertFalse(mi1_3.contains(d10));
-    }
-
-    public void testLess() {
-//        TODO
-//        assertTrue(mi1_3.contains(d6));
-//        assertFalse(mi1_3.contains(d10));
-    }
-
-    public void testGreaterEquals() {
-//        TODO
-//        assertTrue(mi1_3.contains(d6));
-//        assertFalse(mi1_3.contains(d10));
-    }
-
-    public void testLessEquals() {
-//        TODO
-//        assertTrue(mi1_3.contains(d6));
-//        assertFalse(mi1_3.contains(d10));
-    }
-
-    public void testGreater() {
-//        TODO
-//        assertTrue(mi1_3.contains(d6));
-//        assertFalse(mi1_3.contains(d10));
-    }
-
-    public void testNotEquals() {
-//        TODO
-//        assertTrue(mi1_3.contains(d6));
-//        assertFalse(mi1_3.contains(d10));
     }
 
 //Carolla begin
