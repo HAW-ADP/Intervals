@@ -77,10 +77,6 @@ public class ADIntervalTest {
     
     @Test
     public void test_intersection() {
-    	
-    	System.out.println("Interval: "+m1);
-    	System.out.println("Ergebnis: "+m1.intersection(m1));
-    	
     	//intersection(NaI, m1) = intersection(m1, NaI) ) NaI
     	assertEquals(nai, m1.intersection(nai));
     	assertEquals(nai, nai.intersection(m1));
@@ -99,4 +95,15 @@ public class ADIntervalTest {
     	assertEquals(m1, m1.intersection(m1));
     }
 
+    @Test
+    public void test_intersectionUnion() {
+    	//union(m1, intersection(m1,m2)) = m1
+    	assertEquals(m1, m1.union(m1.intersection(m2)));
+    	
+    	//intersection(union(m1,m3), union(m2,m3)) = union(m3, intersection(m1,m2))
+    	assertEquals(m1.union(m3).intersection(m2.union(m3)), m3.union(m1.intersection(m2)));
+    	
+    	//intersection(m1, union(m1,m2)) = m1
+    	assertEquals(m1, m1.intersection(m1.union(m2)));
+    }
 }
