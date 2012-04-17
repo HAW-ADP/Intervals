@@ -27,11 +27,11 @@ public interface Interval {
     double length();
 
     Interval plus(Intervals other);
-    
+
     Interval minus(Intervals other);
-       
+
     Interval multi(Intervals other);
-    
+
     //producer
     Interval plus(Interval other);
 
@@ -69,11 +69,11 @@ public interface Interval {
     Interval intersection(Interval other);
 
     Interval difference(Interval other);
-    
+
     Interval union(double other);
-    
+
     Interval intersection(double other);
-    
+
     Interval difference(double other);
 
     //Vergleiche
@@ -111,11 +111,11 @@ public interface Interval {
 
     Boolean pGreaterEqual(double other);
 
-	Interval union(Intervals other);
+    Interval union(Intervals other);
 
-	Interval intersection(Intervals other);
+    Interval intersection(Intervals other);
 
-	Interval difference(Intervals other);
+    Interval difference(Intervals other);
 
-	Interval div(Intervals other);
+    Interval div(Intervals other);
 }
