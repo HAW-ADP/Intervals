@@ -12,7 +12,8 @@ public class MultiIntervals implements Intervals {
 	// As Intervals is an Interval, and functions might be given an Intervals as an Interval, and an explicit
 	// supertype cast might be given, we probably need to extend the supertype function instead.
 	
-	private MultiIntervals(LinkedList<Interval> intervals) {
+	//TODO set to public due to FactoryInterval
+	public MultiIntervals(LinkedList<Interval> intervals) {
 		// This MUST be used ONLY by collapse. In theory, we could also integrate the collapse code right here!
 		this.intervals = new HashSet<Interval>(intervals);
 	}
@@ -163,7 +164,7 @@ public class MultiIntervals implements Intervals {
 	public Interval union(Interval other) {
 		// We join our interval with the other.
 		@SuppressWarnings("unchecked")
-		LinkedList<Interval> result = (LinkedList<Interval>) intervals.clone();
+		HashSet<Interval> result = (HashSet<Interval>) intervals.clone();
 		if (other instanceof Intervals)
 			for (Interval i : (Intervals) other)
 				result.add(i);
@@ -331,6 +332,11 @@ public class MultiIntervals implements Intervals {
 		return collapse(new LinkedList<Interval>(intervals));
 	}
 	
+	private Interval collapse(HashSet<Interval> intervals) {
+		// We got a hashset. And we want to stay immutable.
+		return collapse(new LinkedList<Interval>(intervals));
+	}
+	
 	private Interval collapse(LinkedList<Interval> intervals) {
 		// We order all our intervals. Then we iterate:
 		// If we find a gap, we push what we've got.
@@ -344,7 +350,8 @@ public class MultiIntervals implements Intervals {
 		Double lbound = null;
 		Double ubound = null;
 		for (Interval i : intervals)
-			if (i == Interval.NaI) continue;
+			if (i == Interval.emptyInterval) continue;
+			else if (i == Interval.NaI) return i;
 			else if (i == Interval.realInterval) return i;
 			else if (ubound == null || ubound < i.getLowerBound()) {
 				if (ubound != null)

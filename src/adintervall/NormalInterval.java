@@ -153,7 +153,7 @@ public class NormalInterval implements Interval{
         }
         
         if (o instanceof Double) {
-            return (this.lowerbound == (double) o && this.upperbound == (double) o);
+            return (this.lowerbound == (Double) o && this.upperbound == (Double) o);
         } else if (o instanceof Interval) {
             Interval other = (Interval) o;
             return (this.lowerbound == other.getLowerBound() && this.upperbound == other.getUpperBound());
