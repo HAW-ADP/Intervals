@@ -4,7 +4,11 @@
  */
 package adintervall;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import junit.framework.TestCase;
+
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
@@ -198,4 +202,59 @@ public class TestMultiInterval extends TestCase {
         assertFalse(nai.equals(mi0_15.multi(nai)));
     }
     //Carola end
+    
+    @Test
+    public void test_union() {
+    	
+    	//NaI is always NaI
+		assertTrue(mi0_15.union(nai) == nai);
+    	assertTrue(nai.union(mi0_15) == nai);
+    	
+    	//union(m1, realInterval) = realInterval
+    	assertEquals(real, mi0_15.union(real));
+    	
+    	//union(union(m1,m2),m3) = union(m1,union(m2,m3))    	
+    	assertEquals((mi1_3.union(mi1_5)).union(mi4_5),mi1_3.union(mi1_5.union(mi4_5)));
+    	
+    	//union(m1,m2) = union(m2,m1)
+    	assertEquals(mi1_3.union(mi1_5), mi1_5.union(mi1_3));
+    	
+    	//union(m1,m1) = m1
+    	assertEquals(mi1_3, mi1_3.union(mi1_3));
+    	
+    	//union(i1,4) = [[1,2][4]] = m1
+    	assertEquals(mi1_3, i0_1.union(FactoryInterval.createInterval(d4)));
+    }
+    
+    @Test
+    public void test_intersection() {
+    	//intersection(NaI, m1) = intersection(m1, NaI) ) NaI
+    	assertTrue(nai == mi1_3.intersection(nai));
+    	assertTrue(nai == nai.intersection(mi1_3));
+    	
+    	//intersection(real, m1) = intersection(m1, real) = m1
+    	assertEquals(mi1_3, mi1_3.intersection(real));
+    	assertEquals(mi1_3, real.intersection(mi1_3));
+    	
+    	//intersection(m1,intersection(m2,m3)) = intersection(intersection(m1,m2),m3)
+    	assertEquals(mi1_3.intersection(mi1_5.intersection(mi4_5)), (mi1_3.intersection(mi1_5)).intersection(mi4_5));
+    	
+    	//intersection(m1,m2) = intersection(m2,m1)
+    	assertEquals(mi1_3.intersection(mi1_5), mi1_5.intersection(mi1_3));
+    	
+    	//intersection(m1,m1) = m1
+    	assertEquals(mi1_3, mi1_3.intersection(mi1_3));
+    }
+
+    @Test
+    public void test_intersectionUnion() {
+    	//union(m1, intersection(m1,m2)) = m1
+    	assertEquals(mi1_3, mi1_3.union(mi1_3.intersection(mi1_5)));
+    	
+    	//intersection(union(m1,m3), union(m2,m3)) = union(m3, intersection(m1,m2))
+    	assertEquals(mi1_3.union(mi1_5).intersection(mi1_5.union(mi4_5)), mi4_5.union(mi1_3.intersection(mi1_5)));
+    	
+    	//intersection(m1, union(m1,m2)) = m1
+    	assertEquals(mi1_3, mi1_3.intersection(mi1_3.union(mi1_5)));
+    }
 }
