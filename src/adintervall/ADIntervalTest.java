@@ -78,8 +78,8 @@ public class ADIntervalTest {
     @Test
     public void test_intersection() {
     	//intersection(NaI, m1) = intersection(m1, NaI) ) NaI
-    	assertEquals(nai, m1.intersection(nai));
-    	assertEquals(nai, nai.intersection(m1));
+    	assertTrue(nai == m1.intersection(nai));
+    	assertTrue(nai == nai.intersection(m1));
     	
     	//intersection(real, m1) = intersection(m1, real) = m1
     	assertEquals(m1, m1.intersection(real));
