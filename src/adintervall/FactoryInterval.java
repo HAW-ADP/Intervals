@@ -7,18 +7,6 @@ public final class FactoryInterval {
     private FactoryInterval() {
     }
     
-//	public static Interval createInterval(Interval... a) {
-//	if (a.length == 1)
-//		return a[0];
-//	else {
-//		Interval i = a[0];
-//		for (int n = 1; n < a.length; n++) {
-//			i = i.union(a[n]);
-//		}
-//		return i;
-//	}
-//}
-
     public static Interval createInterval(double val1, double val2) {
         if (NormalInterval.isNaN(val1) || NormalInterval.isNaN(val2) || val1 > val2) {
             return Interval.NaI;
@@ -37,22 +25,20 @@ public final class FactoryInterval {
         return createInterval(val, val);
     }
 
-    
-    public static Interval createInterval(Collection<? extends Object> col){
+    public static Interval createInterval(Object... col) {
+        return createInterval(Arrays.asList(col));
+    }
+
+    public static Interval createInterval(Collection<? extends Object> col) {
         List<Interval> lList = new LinkedList<>();
-        if (col.size() == 0) {
+        if (col.isEmpty()) {
             return Interval.emptyInterval;
         } else {
             for (Object obj : col) {
                 if (obj instanceof Double) {
                     lList.add(createInterval((Double) obj));
-//                } else if (obj instanceof Iterable) {
-//                    for (Object o : (Iterable) obj)
-//                        lList.add((Interval) o);
                 } else if (obj instanceof Intervals) {
                     lList.addAll(((Intervals) obj).getIntervals());
-                	//for (Interval i : (Intervals) obj)
-                	//	lList.add(i);
                 } else if (obj instanceof Interval && !(obj == Interval.NaI)) {
                     lList.add((Interval) obj);
                 } else {
@@ -98,9 +84,5 @@ public final class FactoryInterval {
                 return new MultiIntervals(result);
             }
         }
-    }
-    //Variante 1
-    public static Interval createInterval(Object... col) {
-            return createInterval(Arrays.asList(col));
     }
 }
