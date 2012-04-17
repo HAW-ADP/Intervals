@@ -2,8 +2,6 @@ package adintervall;
 
 import java.util.LinkedList;
 
-import main.Interval;
-
 public interface Interval {
 
     public static final double NaN = Double.NaN; // 0.0d / 0.0;
