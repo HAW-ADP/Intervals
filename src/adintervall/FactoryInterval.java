@@ -63,7 +63,7 @@ public final class FactoryInterval {
                     return i;
                 } else if (ubound == null || ubound < i.getLowerBound()) {
                     if (ubound != null) {
-                        result.push(new NormalInterval(lbound, ubound));
+                        result.add(new NormalInterval(lbound, ubound));
                     }
                     lbound = i.getLowerBound();
                     ubound = i.getUpperBound();
@@ -72,9 +72,9 @@ public final class FactoryInterval {
                 }
             }
             if (ubound != null) {
-                result.push(new NormalInterval(lbound, ubound));
+                result.add(new NormalInterval(lbound, ubound));
             }
-            if (result.size() == 0) {
+            if (result.isEmpty()) {
                 return Interval.emptyInterval;
             } else if (result.size() == 1) {
                 return result.get(0);
