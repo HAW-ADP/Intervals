@@ -365,7 +365,7 @@ public class MultiIntervals implements Intervals {
 			result.push(new NormalInterval(lbound, ubound));
 		// Here comes the part that lets us return Interval instead of Intervals
 		if (result.size() == 0)
-			return Interval.NaI;
+			return Interval.emptyInterval;
 		else if (result.size() == 1)
 			return result.get(0);
 		else
