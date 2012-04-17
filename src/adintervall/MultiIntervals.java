@@ -20,6 +20,9 @@ public class MultiIntervals implements Intervals {
 
     @Override
     public double getLowerBound() {
+        if (this.intervals.isEmpty())
+            return Double.NaN;
+
         double lbound = Double.POSITIVE_INFINITY;
         for (Interval i : intervals) {
             lbound = Math.min(lbound, i.getLowerBound());
@@ -29,6 +32,9 @@ public class MultiIntervals implements Intervals {
 
     @Override
     public double getUpperBound() {
+        if (this.intervals.isEmpty())
+            return Double.NaN;
+
         double ubound = Double.NEGATIVE_INFINITY;
         for (Interval i : intervals) {
             ubound = Math.min(ubound, i.getLowerBound());
