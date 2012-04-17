@@ -249,85 +249,62 @@ public class MultiIntervals implements Intervals {
 
     @Override
     public Boolean greaterEqual(Interval other) {
-        // TODO Auto-generated method stub
-        return null;
+        return false;
     }
 
     @Override
-    public Boolean pLess(Interval other) {
-        // TODO Auto-generated method stub
-        return null;
+    public double pLess(Interval other) {
+        return 0;
     }
 
     @Override
     public Boolean pLessEqual(Interval other) {
-        // TODO Auto-generated method stub
-        return null;
+        return false;
     }
 
     @Override
-    public Boolean pGreater(Interval other) {
-        // TODO Auto-generated method stub
-        return null;
+    public double pGreater(Interval other) {
+        return 0;
     }
 
     @Override
     public Boolean pGreaterEqual(Interval other) {
-        // TODO Auto-generated method stub
-        return null;
+        return false;
     }
 
     @Override
     public Boolean less(double other) {
-        // TODO Auto-generated method stub
-        return null;
+        return false;
     }
 
     @Override
     public Boolean lessEqual(double other) {
-        // TODO Auto-generated method stub
-        return null;
+        return false;
     }
 
     @Override
     public Boolean greater(double other) {
-        // TODO Auto-generated method stub
-        return null;
+        return false;
     }
 
     @Override
     public Boolean greaterEqual(double other) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public Boolean pLess(double other) {
-        // TODO Auto-generated method stub
-        return null;
+        return false;
     }
 
     @Override
     public Boolean pLessEqual(double other) {
-        // TODO Auto-generated method stub
-        return null;
+        return false;
     }
-
-    @Override
-    public Boolean pGreater(double other) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
+    
     @Override
     public Boolean pGreaterEqual(double other) {
-        // TODO Auto-generated method stub
-        return null;
+        return false;
     }
 
     @Override
     public Iterator<Interval> iterator() {
-        return intervals.iterator();
+        return getIntervals().iterator();
     }
 
     @Override
@@ -368,8 +345,9 @@ public class MultiIntervals implements Intervals {
         return this.plus(FactoryInterval.createInterval(other, other));
     }
 
+    @Override
     public Interval minus(Interval other) {
-        Set<Interval> ergebnis = new HashSet<Interval>();
+        Set<Interval> ergebnis = new HashSet<>();
 
         if (other instanceof Intervals) {
             for (Interval iv1 : this) {
@@ -392,7 +370,7 @@ public class MultiIntervals implements Intervals {
 
     @Override
     public Interval multi(Interval other) {
-        Set<Interval> ergebnis = new HashSet<Interval>();
+        Set<Interval> ergebnis = new HashSet<>();
 
         if (other instanceof Intervals) {
             for (Interval iv1 : this) {
@@ -412,5 +390,15 @@ public class MultiIntervals implements Intervals {
     @Override
     public Interval multi(double other) {
         return this.multi(FactoryInterval.createInterval(other, other));
+    }
+
+    @Override
+    public Boolean contains(double value) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public Boolean contains(Interval other) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }

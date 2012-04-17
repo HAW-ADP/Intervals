@@ -2,11 +2,7 @@ package adintervall;
 
 import java.util.Arrays;
 
-import main.FactoryInterval;
-import main.Interval;
-import main.Intervals;
 import static adintervall.FactoryInterval.*;
-import static main.FactoryInterval.createInterval;
 
 public class NormalInterval implements Interval{
 
