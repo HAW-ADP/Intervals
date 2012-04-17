@@ -2,6 +2,8 @@ package adintervall;
 
 import java.util.LinkedList;
 
+import main.Interval;
+
 public interface Interval {
 
     public static final double NaN = Double.NaN; // 0.0d / 0.0;
@@ -69,6 +71,12 @@ public interface Interval {
     Interval intersection(Interval other);
 
     Interval difference(Interval other);
+    
+    Interval union(double other);
+    
+    Interval intersection(double other);
+    
+    Interval difference(double other);
 
     //Vergleiche
     Boolean contains(Interval other);
@@ -81,11 +89,11 @@ public interface Interval {
 
     Boolean greaterEqual(Interval other);
 
-    Boolean pLess(Interval other);
+    double pLess(Interval other);
 
     Boolean pLessEqual(Interval other);
 
-    Boolean pGreater(Interval other);
+    double pGreater(Interval other);
 
     Boolean pGreaterEqual(Interval other);
 
@@ -97,11 +105,11 @@ public interface Interval {
 
     Boolean greaterEqual(double other);
 
-    Boolean pLess(double other);
+    double pLess(double other);
 
     Boolean pLessEqual(double other);
 
-    Boolean pGreater(double other);
+    double pGreater(double other);
 
     Boolean pGreaterEqual(double other);
 }
