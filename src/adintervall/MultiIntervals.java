@@ -39,7 +39,7 @@ public class MultiIntervals implements Intervals {
 
         double ubound = Double.NEGATIVE_INFINITY;
         for (Interval i : intervals) {
-            ubound = Math.min(ubound, i.getLowerBound());
+            ubound = Math.max(ubound, i.getUpperBound());
         }
         return ubound;
     }
