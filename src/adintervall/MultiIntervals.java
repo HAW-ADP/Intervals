@@ -18,31 +18,22 @@ public class MultiIntervals implements Intervals {
         return ((Set<Interval>) ((HashSet) intervals).clone());
     }
 
-    // Luciano, Gregor begin
     @Override
     public double getLowerBound() {
-        Object[] d = this.getIntervals().toArray();
-        double minLowerBound = ((Interval) d[0]).getLowerBound();
-
-        for (Interval i : this.getIntervals()) {
-            if (i.getLowerBound() < minLowerBound) {
-                minLowerBound = i.getLowerBound();
-            }
+        double lbound = Double.POSITIVE_INFINITY;
+        for (Interval i : intervals) {
+            lbound = Math.min(lbound, i.getLowerBound());
         }
-        return minLowerBound;
+        return lbound;
     }
 
     @Override
     public double getUpperBound() {
-        Object[] d = this.getIntervals().toArray();
-        double maxUpperBound = ((Interval) d[0]).getUpperBound();
-
-        for (Interval i : this.getIntervals()) {
-            if (i.getUpperBound() > maxUpperBound) {
-                maxUpperBound = i.getUpperBound();
-            }
+        double ubound = Double.NEGATIVE_INFINITY;
+        for (Interval i : intervals) {
+            ubound = Math.min(ubound, i.getLowerBound());
         }
-        return maxUpperBound;
+        return ubound;
     }
 
     @Override
@@ -105,7 +96,6 @@ public class MultiIntervals implements Intervals {
         }
         return true;
     }
-    //Luciano, Gregor end
 
     @Override
     public boolean notEquals(Object other) {
