@@ -50,7 +50,7 @@ public class MultiIntervals implements Intervals {
 
     @Override
     public String toString() {
-    	StringBuilder sb = new StringBuilder('{');
+    	StringBuilder sb = new StringBuilder("{");
     	Iterator<Interval> i = intervals.iterator();
     	while (i.hasNext()) {
     		sb.append(i.next());

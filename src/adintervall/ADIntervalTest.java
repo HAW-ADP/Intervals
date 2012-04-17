@@ -56,13 +56,13 @@ public class ADIntervalTest {
     public void test_union() {
     	
     	//NaI is always NaI
-    	assertTrue(m1.union(nai).equals(nai));
-    	assertTrue(nai.union(m1).equals(nai));
+		assertTrue(m1.union(nai) == nai);
+    	assertTrue(nai.union(m1) == nai);
     	
     	//union(m1, realInterval) = realInterval
     	assertTrue(m1.union(real).equals(real));
     	
-    	//union(union(m1,m2),m3) = union(m1,union(m2,m3))
+    	//union(union(m1,m2),m3) = union(m1,union(m2,m3))    	
     	assertTrue((m1.union(m2)).union(m3).equals( m1.union(m2.union(m3))));
     	
     	//union(m1,m2) = union(m2,m1)
@@ -72,11 +72,14 @@ public class ADIntervalTest {
     	assertTrue(m1.union(m1).equals(m1));
     	
     	//union(i1,4) = [[1,2][4]] = m1
-    	//assertTrue(m1.equals(i1.union(d4)));
+    	assertTrue(m1.equals(i1.union(FactoryInterval.createInterval(d4))));
     }
     
     @Test
     public void test_intersection() {
+    	
+    	System.out.println("Interval: "+m1);
+    	System.out.println("Ergebnis: "+m1.intersection(m1));
     	
     	//intersection(NaI, m1) = intersection(m1, NaI) ) NaI
     	assertTrue(m1.intersection(nai).equals(nai));

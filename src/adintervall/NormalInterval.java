@@ -218,7 +218,7 @@ public class NormalInterval implements Interval{
         if (a <= b) {
             return FactoryInterval.createInterval(a, b);
         }
-        return Interval.NaI;
+        return Interval.emptyInterval;
 
     }
 
