@@ -4,20 +4,20 @@ import java.util.*;
 
 public class MultiIntervals implements Intervals {
 
-    private final Set<Interval> intevals;
+    private final Set<Interval> intervals;
 
     // As Intervals is an Interval, and we might return an Interval, always use Interval as return value
     // As Intervals is an Interval, and functions might be given an Intervals as an Interval, and an explicit
     // supertype cast might be given, we probably need to extend the supertype function instead.
 
     public MultiIntervals(Collection<? extends Interval> col) {
-        this.intevals = new HashSet<>(col);
+        this.intervals = new HashSet<>(col);
     }
     
     
     @Override
     public Set<Interval> getIntervals() {
-        return ((Set<Interval>) ((HashSet) intevals).clone());
+        return ((Set<Interval>) ((HashSet) intervals).clone());
     }
 
         // Luciano, Gregor begin
@@ -115,7 +115,7 @@ public class MultiIntervals implements Intervals {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("{");
-        Iterator<Interval> i = intevals.iterator();
+        Iterator<Interval> i = intervals.iterator();
         while (i.hasNext()) {
             sb.append(i.next());
             if (i.hasNext()) {
@@ -128,7 +128,7 @@ public class MultiIntervals implements Intervals {
     @Override
     public int hashCode() {
         // Arrays and lists have a great hashCode implementation.
-        return intevals.hashCode();
+        return intervals.hashCode();
     }
 
     @Override
@@ -164,7 +164,7 @@ public class MultiIntervals implements Intervals {
     @Override
     public Boolean contains(double value) {
         // If any of our intervals contains the value, we contain it.
-        for (Interval i : intevals) {
+        for (Interval i : intervals) {
             if (i.contains(value)) {
                 return true;
             }
@@ -238,7 +238,7 @@ public class MultiIntervals implements Intervals {
     public Interval intersection(Interval other) {
         // We intersect all our intervals with the other
         LinkedList<Interval> result = new LinkedList<Interval>();
-        for (Interval i1 : intevals) {
+        for (Interval i1 : intervals) {
             if (other instanceof Intervals) // If we got multiple, then we join all the intersections
             {
                 for (Interval i2 : (Intervals) other) {
@@ -264,7 +264,7 @@ public class MultiIntervals implements Intervals {
         } else {
             // We remove the other interval from all our intervals and join them.
             LinkedList<Interval> result = new LinkedList<Interval>();
-            for (Interval i : intevals) {
+            for (Interval i : intervals) {
                 result.add(i.difference(other));
             }
             return collapse(result);
@@ -283,7 +283,7 @@ public class MultiIntervals implements Intervals {
             }
             return true;
         } else {
-            for (Interval i : intevals) {
+            for (Interval i : intervals) {
                 if (i.contains(other)) {
                     return true;
                 }
@@ -390,13 +390,13 @@ public class MultiIntervals implements Intervals {
     
     @Override
     public Iterator<Interval> iterator() {
-        return intevals.iterator();
+        return intervals.iterator();
     }
 
     @SuppressWarnings("unused")
     private Interval collapse() {
         // We got a hashset. And we want to stay immutable.
-        return collapse(new LinkedList<Interval>(intevals));
+        return collapse(new LinkedList<Interval>(intervals));
     }
 
     private Interval collapse(HashSet<Interval> intervals) {
