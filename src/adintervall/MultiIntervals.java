@@ -397,17 +397,6 @@ public class MultiIntervals implements Intervals {
         return intervals.iterator();
     }
 
-    @SuppressWarnings("unused")
-    private Interval collapse() {
-        // We got a hashset. And we want to stay immutable.
-        return collapse(new LinkedList<Interval>(intervals));
-    }
-
-    private Interval collapse(HashSet<Interval> intervals) {
-        // We got a hashset. And we want to stay immutable.
-        return collapse(new LinkedList<Interval>(intervals));
-    }
-
     @Override
     public Interval plus(Intervals other) {
         throw new UnsupportedOperationException("Not supported yet.");
