@@ -1,5 +1,7 @@
 package intervall;
 
+import adintervall.FactoryInterval;
+import adintervall.Interval;
 import java.util.Arrays;
 import java.util.Random;
 
