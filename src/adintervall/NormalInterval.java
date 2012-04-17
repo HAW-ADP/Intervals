@@ -2,11 +2,7 @@ package adintervall;
 
 import java.util.Arrays;
 
-import main.FactoryInterval;
-import main.Interval;
-import main.Intervals;
 import static adintervall.FactoryInterval.*;
-import static main.FactoryInterval.createInterval;
 
 public class NormalInterval implements Interval{
 
@@ -48,11 +44,8 @@ public class NormalInterval implements Interval{
        if (other == null || this == Interval.NaI || other == Interval.NaI  ) {
             return Interval.NaI;
         }
-       if (other == Interval.emptyInterval){
+       if (other == emptyInterval){
     	   return this;
-       }
-       if(this == emptyInterval){
-    	   return other;
        }
        if (other instanceof Intervals){
     	   other.plus(this);
@@ -69,8 +62,8 @@ public class NormalInterval implements Interval{
        if (other == null || this == Interval.NaI || other == Interval.NaI  ) {
             return Interval.NaI;
         }
-       if (other == Interval.emptyInterval || this == emptyInterval){
-    	   return Interval.emptyInterval;
+       if (other == emptyInterval){
+    	   return emptyInterval;
        }       
        if (other instanceof Intervals){
     	   System.out.println("multi  "+other.multi(-1d));
@@ -89,8 +82,8 @@ public class NormalInterval implements Interval{
        if (other == null || this == Interval.NaI || other == Interval.NaI  ) {
             return Interval.NaI;
         }
-       if (other == Interval.emptyInterval || this == emptyInterval){
-    	   return Interval.emptyInterval;
+       if (other == emptyInterval){
+    	   return emptyInterval;
        }
        if (other instanceof Intervals){
     	   other.multi(this);
@@ -107,7 +100,7 @@ public class NormalInterval implements Interval{
        if (other == null || this == Interval.NaI || other == Interval.NaI  ) {
             return Interval.NaI;
         }
-       if (other == Interval.emptyInterval || this == emptyInterval){
+       if (other == emptyInterval){
     	   return emptyInterval;
        }
        if (other instanceof Intervals){
@@ -210,7 +203,7 @@ public class NormalInterval implements Interval{
        if (other == null || this == Interval.NaI||other == Interval.NaI) {
             return Interval.NaI;
         }
-       if (other == Interval.emptyInterval || this == emptyInterval){
+       if (other == Interval.emptyInterval){
     	   return this;
        }
        if (other instanceof Intervals){
@@ -244,6 +237,11 @@ public class NormalInterval implements Interval{
        if (other == null || this == Interval.NaI || other == Interval.NaI  ) {
             return Interval.NaI;
         }
+       
+       if(other == emptyInterval){
+    	   return emptyInterval;
+       }
+       
         double a, b;
 
         if (this.getLowerBound() > other.getLowerBound()) {
