@@ -53,29 +53,29 @@ public class MultiIntervals implements Intervals {
         return length;
     }
 
-// @Override
-// public Boolean contains(double value) {
-// for (Interval i : this.getIntervals()) {
-// if (i.contains(value)) return true;
-// }
-// return false;
-// }
-//
-// @Override
-// public Boolean contains(Interval value) {
-// for (Interval i : this.getIntervals()) {
-// if (i.contains(value)) return true;
-// }
-// return false;
-// }
-//
-// @Override
-// public Boolean contains(Intervals value) {
-// for (Interval i : this.getIntervals()) {
-// if (!this.contains(i)) return false;
-// }
-// return true;
-// }
+    @Override
+    public boolean contains(double other) {
+        for (Interval i : this.getIntervals()) {
+           if (i.contains(other)) return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean contains(Interval other) {
+        if (other instanceof Intervals) {
+            for (Interval i : ((Intervals) other).getIntervals()) {
+                if (!this.contains(i)) return false;
+            }
+            return true;
+        } else {
+            for (Interval i : this.getIntervals()) {
+                if (i.equals(other)) return true;
+            }
+            return false;
+        }
+    }
+  
     @Override
     public boolean equals(Object other) {
         if (this == other) {
