@@ -210,22 +210,37 @@ public void test_union() {
     }
     
     public void test_intersection() {
-    	//intersection(NaI, m1) = intersection(m1, NaI) ) NaI
+    	//intersection(NaI, m1) = intersection(m1, NaI) = NaI
+    	System.out.println("| intersection(NaI, m1) = intersection(m1, NaI) = NaI");
     	assertTrue(nai == mi1_3.intersection(nai));
+    	System.out.println("|--> mi1_3.intersection(nai) = "+mi1_3.intersection(nai));
     	assertTrue(nai == nai.intersection(mi1_3));
+    	System.out.println("|--> nai.intersection(mi1_3) = "+nai.intersection(mi1_3));
     	
     	//intersection(real, m1) = intersection(m1, real) = m1
+    	System.out.println("| intersection(real, m1) = intersection(m1, real) = m1");
     	assertEquals(mi1_3, mi1_3.intersection(real));
+    	System.out.println("|--> mi1_3.intersection(real) = "+mi1_3.intersection(real));
     	assertEquals(mi1_3, real.intersection(mi1_3));
+    	System.out.println("|--> real.intersection(mi1_3) = "+real.intersection(mi1_3));
     	
     	//intersection(m1,intersection(m2,m3)) = intersection(intersection(m1,m2),m3)
+    	System.out.println("| intersection(m1,intersection(m2,m3)) = intersection(intersection(m1,m2),m3)");
     	assertEquals(mi1_3.intersection(mi1_5.intersection(mi4_5)), (mi1_3.intersection(mi1_5)).intersection(mi4_5));
+    	System.out.println("|--> mi1_3.intersection(mi1_5.intersection(mi4_5))   = "+mi1_3.intersection(mi1_5.intersection(mi4_5)));
+    	System.out.println("|--> (mi1_3.intersection(mi1_5)).intersection(mi4_5) = "+(mi1_3.intersection(mi1_5)).intersection(mi4_5));
     	
     	//intersection(m1,m2) = intersection(m2,m1)
+    	System.out.println("| intersection(m1,m2) = intersection(m2,m1)");
     	assertEquals(mi1_3.intersection(mi1_5), mi1_5.intersection(mi1_3));
+    	System.out.println("|--> mi1_3.intersection(mi1_5) = "+mi1_3.intersection(mi1_5));
+    	System.out.println("|--> mi1_5.intersection(mi1_3) = "+mi1_5.intersection(mi1_3));
     	
     	//intersection(m1,m1) = m1
+    	System.out.println("| intersection(m1,m1) = m1");
     	assertEquals(mi1_3, mi1_3.intersection(mi1_3));
+    	System.out.println("|--> mi1_3.intersection(mi1_3) = "+mi1_3.intersection(mi1_3));
+    	System.out.println("|--> mi1_3                     = "+mi1_3);
     }
     
     
