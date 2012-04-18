@@ -26,36 +26,32 @@ public class TestMultiInterval extends TestCase {
     Interval i0_1, i0_6, i0_60, i1_2, i1_3, i1_5, i1_6, i2_3, i2_5,
             i3_6, i4_6, i4_8, i6_7, i7_8, i10_13, i10_15, i14_15,
             i10_18, i20_30, i_30_30, i0_900;
-    double d0 = 0, d1 = 1, d2 = 2, d3 = 3, d4 = 4, d5 = 5,
-            d6 = 6, d7 = 7, d8 = 8, d9 = 9, d10 = 10,
-            d11 = 11, d12 = 12, d13 = 13, d14 = 14, d15 = 15, d18 = 18, d20 = 20, d30 = 30,
-            d_30 = -30, d60 = 60, d900 = 900;
 
     @Override
     protected void setUp() throws Exception {
-        i0_1 = FactoryInterval.createInterval(d0, d1);
-        i0_6 = FactoryInterval.createInterval(d0, d6);
-        i0_60 = FactoryInterval.createInterval(d0, d60);
-        i1_2 = FactoryInterval.createInterval(d1, d2);
-        i4_8 = FactoryInterval.createInterval(d4, d8);
-        i6_7 = FactoryInterval.createInterval(d6, d7);
-        i7_8 = FactoryInterval.createInterval(d7, d8);
-        i10_13 = FactoryInterval.createInterval(d10, d13);
-        i10_15 = FactoryInterval.createInterval(d10, d15);
-        i10_18 = FactoryInterval.createInterval(d10, d18);
-        i14_15 = FactoryInterval.createInterval(d14, d15);
-        i20_30 = FactoryInterval.createInterval(d20, d30);
+        i0_1 = FactoryInterval.createInterval(0d, 1d);
+        i0_6 = FactoryInterval.createInterval(0d, 6d);
+        i0_60 = FactoryInterval.createInterval(0d, 60d);
+        i1_2 = FactoryInterval.createInterval(1d, 2d);
+        i4_8 = FactoryInterval.createInterval(4d, 8d);
+        i6_7 = FactoryInterval.createInterval(6d, 7d);
+        i7_8 = FactoryInterval.createInterval(7d, 8d);
+        i10_13 = FactoryInterval.createInterval(10d, 13d);
+        i10_15 = FactoryInterval.createInterval(10d, 15d);
+        i10_18 = FactoryInterval.createInterval(10d, 18d);
+        i14_15 = FactoryInterval.createInterval(14d, 15d);
+        i20_30 = FactoryInterval.createInterval(20d, 30d);
 
-        i1_3 = FactoryInterval.createInterval(d1, d3);
-        i2_5 = FactoryInterval.createInterval(d2, d5);
-        i2_3 = FactoryInterval.createInterval(d2, d3);
-        i1_5 = FactoryInterval.createInterval(d1, d5);
-        i1_6 = FactoryInterval.createInterval(d1, d6);
-        i3_6 = FactoryInterval.createInterval(d3, d6);
-        i4_6 = FactoryInterval.createInterval(d4, d6);
-        i0_60 = FactoryInterval.createInterval(d0, d60);
-        i_30_30 = FactoryInterval.createInterval(d_30, d30);
-        i0_900 = FactoryInterval.createInterval(d0, d900);
+        i1_3 = FactoryInterval.createInterval(1d, 3d);
+        i2_5 = FactoryInterval.createInterval(2d, 5d);
+        i2_3 = FactoryInterval.createInterval(2d, 3d);
+        i1_5 = FactoryInterval.createInterval(1d, 5d);
+        i1_6 = FactoryInterval.createInterval(1d, 6d);
+        i3_6 = FactoryInterval.createInterval(3d, 6d);
+        i4_6 = FactoryInterval.createInterval(4d, 6d);
+        i0_60 = FactoryInterval.createInterval(0d, 60d);
+        i_30_30 = FactoryInterval.createInterval(-30d, 30d);
+        i0_900 = FactoryInterval.createInterval(0d, 900d);
 
         mi1_3 = FactoryInterval.createInterval(i1_2, i6_7, i4_8);
         mi4_5 = FactoryInterval.createInterval(i10_13, i14_15);
@@ -107,8 +103,8 @@ public class TestMultiInterval extends TestCase {
     }
 
     public void testLengthValue() {
-        assertEquals(d5, mi1_3.length());
-        assertFalse(mi1_3.length() == d7);
+        assertEquals(5d, mi1_3.length());
+        assertFalse(mi1_3.length() == 7d);
     }
 
     public void testContainsIntervals() {
@@ -123,8 +119,8 @@ public class TestMultiInterval extends TestCase {
     }
 
     public void testContainsValue() {
-        assertTrue(mi1_3.contains(d6));
-        assertFalse(mi1_3.contains(d10));
+        assertTrue(mi1_3.contains(6d));
+        assertFalse(mi1_3.contains(10d));
     }
     
     public void testEquals() {
@@ -174,7 +170,7 @@ public class TestMultiInterval extends TestCase {
         // Kommutativ
         assertEquals(mi0_15.multi(mi0_30), mi0_30.multi(mi0_15));
 //        assertEquals(mi0_15.multi(i7_8), mi0_15.multiKom(i7_8));
-        assertEquals(mi0_15.multi(d3), mi0_15.multiKom(d3));
+        assertEquals(mi0_15.multi(3d), mi0_15.multiKom(3d));
 
         // Spezialf lle
         assertEquals(zero, mi0_15.multi(zero));
