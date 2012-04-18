@@ -6,8 +6,8 @@ public interface Interval {
 
 
     // Literale
-    Interval zeroInterval = new NormalInterval(0.0, 0.0);
-    Interval oneInterval = new NormalInterval(1.0, 1.0);
+    Interval zeroInterval = new NormalInterval(0d, 0d);
+    Interval oneInterval = new NormalInterval(1d, 1d);
     Interval NaI = new NormalInterval(Double.NaN, Double.NaN);
     Interval realInterval = new NormalInterval(Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY);
     Interval emptyInterval = new MultiIntervals(new LinkedList<Interval>());
