@@ -298,7 +298,7 @@ public class NormalInterval implements Interval {
 
 	@Override
 	public double pLess(Interval other) {
-		if (other == null || this == Interval.NaI || other == Interval.NaI)
+		if (other == null || this == Interval.NaI || other == Interval.NaI || other == emptyInterval)
 			return Double.NaN;
 
 		if (equals(other) || (lowerBound == other.getLowerBound() && other.getLowerBound() == Double.NEGATIVE_INFINITY) || (upperBound == other.getUpperBound() && other.getUpperBound() == Double.POSITIVE_INFINITY))
@@ -330,7 +330,7 @@ public class NormalInterval implements Interval {
 
 	@Override
 	public double pGreater(Interval other) {
-		if (other == null || this == Interval.NaI || other == Interval.NaI)
+		if (other == null || this == Interval.NaI || other == Interval.NaI || other == emptyInterval)
 			return Double.NaN;
 		return 100 - pLess(other);
 	}
