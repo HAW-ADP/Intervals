@@ -187,7 +187,7 @@ public class MultiIntervals implements Intervals {
 	@Override
 	public Interval intersection(Interval other) {
 		// We intersect all our intervals with the other
-		List<Interval> result = new LinkedList<>();
+		List<Interval> result = new LinkedList<Interval>();
 		for (Interval i1 : intervals)
 			if (other instanceof Intervals) // If we got multiple, then we join all the intersections
 				for (Interval i2 : (Intervals) other)
@@ -247,7 +247,7 @@ public class MultiIntervals implements Intervals {
 
 	@Override
 	public Interval plus(Interval other) {
-		Set<Interval> result = new HashSet<>();
+		Set<Interval> result = new HashSet<Interval>();
 
 		if (other instanceof Intervals)
 			for (Interval i : intervals)
@@ -266,7 +266,7 @@ public class MultiIntervals implements Intervals {
 
 	@Override
 	public Interval minus(Interval other) {
-		Set<Interval> result = new HashSet<>();
+		Set<Interval> result = new HashSet<Interval>();
 
 		if (other instanceof Intervals)
 			for (Interval i : intervals)
@@ -285,7 +285,7 @@ public class MultiIntervals implements Intervals {
 
 	@Override
 	public Interval multi(Interval other) {
-		Set<Interval> result = new HashSet<>();
+		Set<Interval> result = new HashSet<Interval>();
 
 		if (other instanceof Intervals)
 			for (Interval i : intervals)

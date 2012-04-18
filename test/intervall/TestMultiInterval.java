@@ -16,10 +16,10 @@ import org.junit.runners.Suite;
  *
  * @author Fujitsu
  */
-@RunWith(Suite.class)
-@Suite.SuiteClasses({})
+//@RunWith(Suite.class)
+//@Suite.SuiteClasses({})
 public class TestMultiInterval extends TestCase {
-
+	Set<Interval> iSet;
     Interval nai = Interval.NaI, zero = Interval.zeroInterval,
             one = Interval.oneInterval, real = Interval.realInterval;
     Interval mi1_3, mi4_5, mi1_5, mi0_15, mi0_30, mi0_60, mi_30_30, mi0_900;
@@ -62,6 +62,9 @@ public class TestMultiInterval extends TestCase {
         mi_30_30 = FactoryInterval.createInterval(i_30_30);
         mi0_900 = FactoryInterval.createInterval(i0_900);
 
+        iSet = new HashSet<Interval>();
+        iSet.add(i0_1);
+        iSet.add(i0_6);
 
         super.setUp();
     }
@@ -77,19 +80,18 @@ public class TestMultiInterval extends TestCase {
         assertEquals(i1_3, FactoryInterval.createInterval(i2_3, i1_3));
         assertEquals(i1_6, FactoryInterval.createInterval(i1_2, i2_3, i3_6));
         
-        Set<Interval> i = new HashSet<>();
-        i.add(i0_1);
-        i.add(i0_6);
-        assertEquals(i0_6,FactoryInterval.createInterval(i));
-//        Interval i1 = FactoryInterval.createInterval(1, 3);
-//        Interval i2 = FactoryInterval.createInterval(2, 7);
-//        Interval i3 = FactoryInterval.createInterval(6, 8);
-//        Interval inter = FactoryInterval.createInterval(new Interval[]{i1, i2, i3});
-//        System.out.println("inter: " + inter);
-//        inter = FactoryInterval.createInterval(new Interval[]{i1, i2, i3, Interval.NaI});
-//        System.out.println("inter: " + inter);
-//        inter = FactoryInterval.createInterval(new Interval[]{Interval.realInterval, i1, Interval.NaI});
-//        System.out.println("inter: " + inter);
+        assertEquals(mi1_3, FactoryInterval.createInterval(Interval.oneInterval, mi1_3));
+ 		
+        assertEquals(mi0_15, FactoryInterval.createInterval(Interval.zeroInterval, mi0_15));
+ 	 	
+        assertEquals(Interval.realInterval, FactoryInterval.createInterval(Interval.realInterval, mi1_3));
+ 	 	
+        assertEquals(mi1_3, FactoryInterval.createInterval(Interval.emptyInterval, mi1_3));
+ 	 	
+        assertTrue(Interval.NaI == FactoryInterval.createInterval(Interval.NaI, mi1_3));
+ 	 	
+        assertEquals(i0_6, FactoryInterval.createInterval(iSet));
+
     }
 
     public void testGetLowerBound() {
@@ -172,10 +174,10 @@ public class TestMultiInterval extends TestCase {
 //        assertEquals(mi0_15.multi(i7_8), mi0_15.multiKom(i7_8));
         assertEquals(mi0_15.multi(3d), mi0_15.multiKom(3d));
 
-        // Spezialf lle
+        // Spezialfaelle
         assertEquals(zero, mi0_15.multi(zero));
         assertTrue(mi0_15.equals(mi0_15.multi(one)));
-        assertEquals(real, mi0_15.multi(real));
+        assertTrue(nai == mi0_15.multi(real));
         assertFalse(nai.equals(mi0_15.multi(nai)));
     }
     //Carola end
