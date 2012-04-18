@@ -16,8 +16,8 @@ import org.junit.runners.Suite;
 *
 * @author Fujitsu
 */
-@RunWith(Suite.class)
-@Suite.SuiteClasses({})
+//@RunWith(Suite.class)
+//@Suite.SuiteClasses({})
 public class TestMultiInterval extends TestCase {
 Set<Interval> iSet;
     Interval nai = Interval.NaI, zero = Interval.zeroInterval,
@@ -70,29 +70,45 @@ Set<Interval> iSet;
     }
 
     public void testFactory() {
+    	System.out.println("Testing Factory...");
+    	System.out.println("...testing 2 -> 1...");
+    	System.out.println("[[1,3],[2,5]] -> [1,5]");
         assertEquals(i1_5, FactoryInterval.createInterval(i1_3, i2_5));
-        assertEquals(i1_5, FactoryInterval.createInterval(i2_5, i1_3));
+    	assertEquals(i1_5, FactoryInterval.createInterval(i2_5, i1_3));
+        System.out.println("...testing 1 into 2...");
+    	System.out.println("[[1,5],[2,3]] -> [1,5]");
         assertEquals(i1_5, FactoryInterval.createInterval(i1_5, i2_3));
         assertEquals(i1_5, FactoryInterval.createInterval(i2_3, i1_5));
-        assertEquals(i1_3, FactoryInterval.createInterval(i1_2, i1_3));
+    	System.out.println("...testing 2 -> same lBound...");
+    	System.out.println("[[1,2],[1,3]] -> [1,3]");
+    	assertEquals(i1_3, FactoryInterval.createInterval(i1_2, i1_3));
         assertEquals(i1_3, FactoryInterval.createInterval(i1_3, i1_2));
+    	System.out.println("...testing 2 -> same rBound...");
+    	System.out.println("[[1,3],[2,3]] -> [1,3]");
         assertEquals(i1_3, FactoryInterval.createInterval(i1_3, i2_3));
         assertEquals(i1_3, FactoryInterval.createInterval(i2_3, i1_3));
+    	System.out.println("...testing 3 -> 1...");
+    	System.out.println("[[1,2],[2,3],[3,6]] -> [1,6]");
         assertEquals(i1_6, FactoryInterval.createInterval(i1_2, i2_3, i3_6));
-        
+    	System.out.println("...testing oneInterval...");
+    	System.out.println("[oneInterval,[1,3]] -> [1,3]");
         assertEquals(mi1_3, FactoryInterval.createInterval(Interval.oneInterval, mi1_3));
- 
+        System.out.println("...testing zeroInterval...");
+        System.out.println("[zeroInterval,[[0,1],[2,3],[10,15]] -> [[0,1],[2,3],[10,15]]");
         assertEquals(mi0_15, FactoryInterval.createInterval(Interval.zeroInterval, mi0_15));
- 
-        assertEquals(Interval.realInterval, FactoryInterval.createInterval(Interval.realInterval, mi1_3));
- 
-        assertEquals(mi1_3, FactoryInterval.createInterval(Interval.emptyInterval, mi1_3));
- 
-        assertTrue(Interval.NaI == FactoryInterval.createInterval(Interval.NaI, mi1_3));
- 
+        System.out.println("...testing realInterval...");
+        System.out.println("[realInterval,[[0,1],[2,3],[10,15]] -> realInterval");
+        assertEquals(Interval.realInterval, FactoryInterval.createInterval(Interval.realInterval, mi0_15));
+        System.out.println("...testing emptyInterval...");
+        System.out.println("[emptyInterval,[[0,1],[2,3],[10,15]] -> [[0,1],[2,3],[10,15]]");
+        assertEquals(mi0_15, FactoryInterval.createInterval(Interval.emptyInterval, mi0_15));
+        System.out.println("...testing NaI...");
+        System.out.println("[NaI,[[0,1],[2,3],[10,15]] -> NaI");
+        assertTrue(Interval.NaI == FactoryInterval.createInterval(Interval.NaI, mi0_15));
+        System.out.println("...testing given collection...");
         assertEquals(i0_6, FactoryInterval.createInterval(iSet));
-
     }
+
 
     public void testGetLowerBound() {
         assertEquals(i1_2.getLowerBound(), mi1_3.getLowerBound());
@@ -202,7 +218,7 @@ System.out.println("|--> mi0_15.union(nai) = "+mi0_15.union(nai));
      System.out.println("| union(union(m1,m2),m3) = union(m1,union(m2,m3))");
      assertEquals((mi1_3.union(mi1_5)).union(mi4_5),mi1_3.union(mi1_5.union(mi4_5)));
      System.out.println("|--> (mi1_3.union(mi1_5)).union(mi4_5) = "+(mi1_3.union(mi1_5)).union(mi4_5));
-     System.out.println("|--> mi1_3.union(mi1_5.union(mi4_5)) = "+mi1_3.union(mi1_5.union(mi4_5)));
+     System.out.println("|--> mi1_3.union(mi1_5.union(mi4_5))   = "+mi1_3.union(mi1_5.union(mi4_5)));
     
     
      //union(m1,m2) = union(m2,m1)
@@ -215,7 +231,7 @@ System.out.println("|--> mi0_15.union(nai) = "+mi0_15.union(nai));
      System.out.println("| union(m1,m1) = m1");
      assertEquals(mi1_3, mi1_3.union(mi1_3));
      System.out.println("|--> mi1_3.union(mi1_3) = "+mi1_3.union(mi1_3));
-     System.out.println("|--> mi1_3 = "+mi1_3);
+     System.out.println("|--> mi1_3              = "+mi1_3);
     }
     
     public void test_intersection() {
@@ -252,7 +268,7 @@ System.out.println("|--> mi0_15.union(nai) = "+mi0_15.union(nai));
      System.out.println("| intersection(m1,m1) = m1");
      assertEquals(mi1_3, mi1_3.intersection(mi1_3));
      System.out.println("|--> mi1_3.intersection(mi1_3) = "+mi1_3.intersection(mi1_3));
-     System.out.println("|--> mi1_3 = "+mi1_3);
+     System.out.println("|--> mi1_3                     = "+mi1_3);
     }
     
     
@@ -264,18 +280,18 @@ System.out.println("|--> mi0_15.union(nai) = "+mi0_15.union(nai));
      System.out.println("| union(m1, intersection(m1,m2)) = m1");
      assertEquals(mi1_3, mi1_3.union(mi1_3.intersection(mi1_5)));
      System.out.println("|--> mi1_3.union(mi1_3.intersection(mi1_5)) = "+mi1_3.union(mi1_3.intersection(mi1_5)));
-     System.out.println("|--> mi1_3 = "+mi1_3);
+     System.out.println("|--> mi1_3                                  = "+mi1_3);
     
      //intersection(union(m1,m3), union(m2,m3)) = union(m3, intersection(m1,m2))
      System.out.println("| intersection(union(m1,m3), union(m2,m3)) = union(m3, intersection(m1,m2))");
      assertEquals(mi1_3.union(mi1_5).intersection(mi1_5.union(mi4_5)), mi4_5.union(mi1_3.intersection(mi1_5)));
      System.out.println("|--> mi1_3.union(mi1_5).intersection(mi1_5.union(mi4_5)) = "+mi1_3.union(mi1_5).intersection(mi1_5.union(mi4_5)));
-     System.out.println("|--> mi4_5.union(mi1_3.intersection(mi1_5)) = "+mi4_5.union(mi1_3.intersection(mi1_5)));
+     System.out.println("|--> mi4_5.union(mi1_3.intersection(mi1_5))              = "+mi4_5.union(mi1_3.intersection(mi1_5)));
     
      //intersection(m1, union(m1,m2)) = m1
      System.out.println("| intersection(m1, union(m1,m2)) = m1");
      assertEquals(mi1_3, mi1_3.intersection(mi1_3.union(mi1_5)));
      System.out.println("|--> mi1_3.intersection(mi1_3.union(mi1_5)) = "+mi1_3.intersection(mi1_3.union(mi1_5)));
-     System.out.println("|--> mi1_3 = "+mi1_3);
+     System.out.println("|--> mi1_3                                  = "+mi1_3);
     }
 }
