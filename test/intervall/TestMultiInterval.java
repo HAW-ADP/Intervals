@@ -98,10 +98,12 @@ public class TestMultiInterval extends TestCase {
 
     public void testGetLowerBound() {
         assertEquals(i1_2.getLowerBound(), mi1_3.getLowerBound());
+        assertEquals(Interval.emptyInterval.getLowerBound(), Double.NaN);
     }
 
     public void testGetUpperBound() {
         assertEquals(i4_8.getUpperBound(), mi1_3.getUpperBound());
+        assertEquals(Interval.emptyInterval.getUpperBound(), Double.NaN);
     }
 
     public void testLengthValue() {
@@ -123,6 +125,13 @@ public class TestMultiInterval extends TestCase {
     public void testContainsValue() {
         assertTrue(mi1_3.contains(d6));
         assertFalse(mi1_3.contains(d10));
+    }
+    
+    public void testEquals() {
+        Interval test_30_30_single = FactoryInterval.createInterval(-30d, 30d);
+        Interval test_30_30_multi = FactoryInterval.createInterval(test_30_30_single); 
+        assertTrue(mi_30_30.equals(test_30_30_multi));
+        assertFalse(mi_30_30.equals(mi1_3));
     }
 
 //Carolla begin
