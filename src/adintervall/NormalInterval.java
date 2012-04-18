@@ -76,7 +76,6 @@ public class NormalInterval implements Interval {
 
 		double[] d = {lowerBound * other.getLowerBound(), lowerBound * other.getUpperBound(), upperBound * other.getLowerBound(), upperBound * other.getUpperBound()};
 		Arrays.sort(d);
-
 		return createInterval(d[0], d[d.length - 1]);
 	}
 
