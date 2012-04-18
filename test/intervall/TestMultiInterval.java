@@ -115,7 +115,7 @@ public class TestMultiInterval extends TestCase {
 
     public void testContainsInterval() {
         assertFalse(mi1_3.contains(i10_13));
-        assertTrue(mi1_3.contains(i2_3));
+        assertTrue(mi1_3.contains(i4_6));
     }
 
     public void testContainsValue() {

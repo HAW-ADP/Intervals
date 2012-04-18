@@ -73,7 +73,7 @@ public class MultiIntervals implements Intervals {
 			return true;
 		} else {
 			for (Interval i : intervals)
-				if (i.equals(other))
+				if (i.contains(other))
 					return true;
 			return false;
 		}

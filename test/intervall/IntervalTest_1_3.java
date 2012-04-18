@@ -390,7 +390,20 @@ public class IntervalTest_1_3 {
 		System.out.println(i6 + ".contains(" + NaN + ") = " + i6.contains(NaN));
 		System.out.println();
 	}
-	
+
+        @Test
+	public void interval_contains_test(){
+		System.out.println("----- Test contains(Interval I) -----");
+		System.out.println();
+		
+		assertTrue(i1.contains(i8));
+		assertFalse(i1.contains(i2));
+		
+		System.out.println(i6 + ".contains(" + i8 + ") = " + i1.contains(i8));
+		System.out.println(i1 + ".contains(" + i2 + ") = " + i1.contains(i2));
+		System.out.println();
+	}
+        
 	@Test
 	public void double_union_test(){
 		System.out.println("----- Test union(double d) -----");
