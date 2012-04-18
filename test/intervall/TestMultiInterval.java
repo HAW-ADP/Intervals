@@ -42,8 +42,8 @@ public class TestMultiInterval extends TestCase {
         i7_8 = FactoryInterval.createInterval(d7, d8);
         i10_13 = FactoryInterval.createInterval(d10, d13);
         i10_15 = FactoryInterval.createInterval(d10, d15);
-        i10_18 = FactoryInterval.createInterval(d14, d15);
-        i20_30 = FactoryInterval.createInterval(d14, d15);
+        i10_18 = FactoryInterval.createInterval(d10, d18);
+        i20_30 = FactoryInterval.createInterval(d20, d30);
 
         i1_3 = FactoryInterval.createInterval(d1, d3);
         i2_5 = FactoryInterval.createInterval(d2, d5);
