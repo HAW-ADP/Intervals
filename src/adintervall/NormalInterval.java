@@ -193,7 +193,12 @@ public class NormalInterval implements Interval {
 			return emptyInterval;
 		else if (other instanceof Intervals)
 			return other.intersection(this);
-		return createInterval(Math.max(lowerBound,  other.getLowerBound()), Math.min(upperBound,  other.getUpperBound()));
+		double a = Math.max(lowerBound,  other.getLowerBound());
+		double b = Math.min(upperBound,  other.getUpperBound());
+		if (a > b)
+			return emptyInterval;
+		else
+			return createInterval(a, b);
 	}
 
 	@Override

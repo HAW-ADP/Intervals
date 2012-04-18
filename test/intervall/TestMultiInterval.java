@@ -43,6 +43,7 @@ public class TestMultiInterval extends TestCase {
         i10_13 = FactoryInterval.createInterval(d10, d13);
         i10_15 = FactoryInterval.createInterval(d10, d15);
         i10_18 = FactoryInterval.createInterval(d10, d18);
+        i14_15 = FactoryInterval.createInterval(d14, d15);
         i20_30 = FactoryInterval.createInterval(d20, d30);
 
         i1_3 = FactoryInterval.createInterval(d1, d3);
@@ -111,11 +112,13 @@ public class TestMultiInterval extends TestCase {
     public void testContainsIntervals() {
         assertTrue(mi1_3.contains(mi1_3));
         assertFalse(mi1_3.contains(mi4_5));
+        assertTrue(mi1_5.contains(mi4_5));
     }
 
     public void testContainsInterval() {
         assertFalse(mi1_3.contains(i10_13));
-        assertTrue(mi1_3.contains(i2_3));
+        assertFalse(mi1_3.contains(i2_3));
+        assertTrue(mi1_3.contains(i1_2));
     }
 
     public void testContainsValue() {
