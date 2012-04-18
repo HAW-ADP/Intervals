@@ -175,24 +175,38 @@ public class TestMultiInterval extends TestCase {
     
 public void test_union() {
     	
+		System.out.println("#-- Testing union --#");
+	
     	//NaI is always NaI
+		System.out.println("| multiinterval.union(NaI) = NaI");
 		assertTrue(mi0_15.union(nai) == nai);
+		System.out.println("|--> mi0_15.union(nai) = "+mi0_15.union(nai));
     	assertTrue(nai.union(mi0_15) == nai);
+    	System.out.println("|--> nai.union(mi0_15) = "+nai.union(mi0_15));
     	
     	//union(m1, realInterval) = realInterval
+    	System.out.println("| union(Multiinterval, realInterval) = realInterval");
     	assertEquals(real, mi0_15.union(real));
+    	System.out.println("|--> mi0_15.union(real) = "+mi0_15.union(real));
     	
     	//union(union(m1,m2),m3) = union(m1,union(m2,m3))    	
+    	System.out.println("| union(union(m1,m2),m3) = union(m1,union(m2,m3))");
     	assertEquals((mi1_3.union(mi1_5)).union(mi4_5),mi1_3.union(mi1_5.union(mi4_5)));
+    	System.out.println("|--> (mi1_3.union(mi1_5)).union(mi4_5) = "+(mi1_3.union(mi1_5)).union(mi4_5));
+    	System.out.println("|-->  mi1_3.union(mi1_5.union(mi4_5))  = "+mi1_3.union(mi1_5.union(mi4_5)));
+    	
     	
     	//union(m1,m2) = union(m2,m1)
+    	System.out.println("| union(m1,m2) = union(m2,m1)");
     	assertEquals(mi1_3.union(mi1_5), mi1_5.union(mi1_3));
+    	System.out.println("|--> mi1_3.union(mi1_5) = "+mi1_3.union(mi1_5));
+    	System.out.println("|--> mi1_5.union(mi1_3) = "+mi1_5.union(mi1_3));
     	
     	//union(m1,m1) = m1
+    	System.out.println("| union(m1,m1) = m1");
     	assertEquals(mi1_3, mi1_3.union(mi1_3));
-    	
-    	//union(i1,4) = [[1,2][4]] = m1
-    	assertEquals(mi1_3, i0_1.union(FactoryInterval.createInterval(d4)));
+    	System.out.println("|--> mi1_3.union(mi1_3) = "+mi1_3.union(mi1_3));
+    	System.out.println("|--> mi1_3              = "+mi1_3);
     }
     
     public void test_intersection() {
