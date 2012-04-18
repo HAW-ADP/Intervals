@@ -208,6 +208,12 @@ public class NormalInterval implements Interval {
 			return this;
 		else if (equals(other) || other.contains(this))
 			return emptyInterval;
+		else if (other instanceof Intervals) {
+			Interval intersection = Interval.realInterval;
+			for (Interval i : (Intervals) other)
+				intersection = intersection.intersection(difference(i));
+			return intersection;
+		}
 		double a, b;
 		a = Double.NaN;
 		b = Double.NaN;
