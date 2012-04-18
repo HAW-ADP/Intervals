@@ -1,7 +1,7 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+* To change this template, choose Tools | Templates
+* and open the template in the editor.
+*/
 package intervall;
 
 import adintervall.FactoryInterval;
@@ -13,13 +13,13 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 /**
- *
- * @author Fujitsu
- */
-@RunWith(Suite.class)
-@Suite.SuiteClasses({})
+*
+* @author Fujitsu
+*/
+//@RunWith(Suite.class)
+//@Suite.SuiteClasses({})
 public class TestMultiInterval extends TestCase {
-	Set<Interval> iSet;
+Set<Interval> iSet;
     Interval nai = Interval.NaI, zero = Interval.zeroInterval,
             one = Interval.oneInterval, real = Interval.realInterval;
     Interval mi1_3, mi4_5, mi1_5, mi0_15, mi0_30, mi0_60, mi_30_30, mi0_900;
@@ -81,15 +81,15 @@ public class TestMultiInterval extends TestCase {
         assertEquals(i1_6, FactoryInterval.createInterval(i1_2, i2_3, i3_6));
         
         assertEquals(mi1_3, FactoryInterval.createInterval(Interval.oneInterval, mi1_3));
- 		
+ 
         assertEquals(mi0_15, FactoryInterval.createInterval(Interval.zeroInterval, mi0_15));
- 	 	
+ 
         assertEquals(Interval.realInterval, FactoryInterval.createInterval(Interval.realInterval, mi1_3));
- 	 	
+ 
         assertEquals(mi1_3, FactoryInterval.createInterval(Interval.emptyInterval, mi1_3));
- 	 	
+ 
         assertTrue(Interval.NaI == FactoryInterval.createInterval(Interval.NaI, mi1_3));
- 	 	
+ 
         assertEquals(i0_6, FactoryInterval.createInterval(iSet));
 
     }
@@ -127,7 +127,7 @@ public class TestMultiInterval extends TestCase {
     
     public void testEquals() {
         Interval test_30_30_single = FactoryInterval.createInterval(-30d, 30d);
-        Interval test_30_30_multi = FactoryInterval.createInterval(test_30_30_single); 
+        Interval test_30_30_multi = FactoryInterval.createInterval(test_30_30_single);
         assertTrue(mi_30_30.equals(test_30_30_multi));
         assertFalse(mi_30_30.equals(mi1_3));
     }
@@ -138,12 +138,11 @@ public class TestMultiInterval extends TestCase {
 
         // Beispiele
         assertEquals(mi0_30, mi0_15.plus(mi0_15));
-        System.out.println("mi0_15 +  mi0_15  = " + mi0_30);
         assertEquals(mi0_60, mi0_30.plus(mi0_30));
 
         // Kommutativ
         assertEquals(mi0_15.plus(mi0_30), mi0_30.plus(mi0_15));
-        assertEquals(mi0_15.plus(i7_8), i7_8.plus(mi0_15));
+// assertEquals(mi0_15.plus(i7_8), mi0_15.plusKom(i7_8));
         assertEquals(mi0_15.plus(3), mi0_15.plusKom(3));
 
         // Spezialf lle
@@ -157,7 +156,6 @@ public class TestMultiInterval extends TestCase {
 
         // Beispiele
         assertEquals(mi_30_30, mi0_30.minus(mi0_30));
-        System.out.println("mi0_30 -  mi0_30  = " + mi_30_30);
 
         // Spezialf lle
         assertEquals(mi0_15, mi0_15.minus(zero));
@@ -170,112 +168,114 @@ public class TestMultiInterval extends TestCase {
 
         // Beispiele
         assertEquals(mi0_900, mi0_30.multi(mi0_30));
-        System.out.println("mi0_30 +  mi0_30  = " + mi0_900);
 
         // Kommutativ
         assertEquals(mi0_15.multi(mi0_30), mi0_30.multi(mi0_15));
+// assertEquals(mi0_15.multi(i7_8), mi0_15.multiKom(i7_8));
         assertEquals(mi0_15.multi(3d), mi0_15.multiKom(3d));
 
-        // Spezialf lle
+        // Spezialfaelle
         assertEquals(zero, mi0_15.multi(zero));
         assertTrue(mi0_15.equals(mi0_15.multi(one)));
+        assertTrue(nai == mi0_15.multi(real));
         assertFalse(nai.equals(mi0_15.multi(nai)));
-    }    //Carola end
+    }
+    //Carola end
     
 public void test_union() {
-    	
-		System.out.println("#-- Testing union --#");
-	
-    	//NaI is always NaI
-		System.out.println("| multiinterval.union(NaI) = NaI");
-		assertTrue(mi0_15.union(nai) == nai);
-		System.out.println("|--> mi0_15.union(nai) = "+mi0_15.union(nai));
-    	assertTrue(nai.union(mi0_15) == nai);
-    	System.out.println("|--> nai.union(mi0_15) = "+nai.union(mi0_15));
-    	
-    	//union(m1, realInterval) = realInterval
-    	System.out.println("| union(Multiinterval, realInterval) = realInterval");
-    	assertEquals(real, mi0_15.union(real));
-    	System.out.println("|--> mi0_15.union(real) = "+mi0_15.union(real));
-    	
-    	//union(union(m1,m2),m3) = union(m1,union(m2,m3))    	
-    	System.out.println("| union(union(m1,m2),m3) = union(m1,union(m2,m3))");
-    	assertEquals((mi1_3.union(mi1_5)).union(mi4_5),mi1_3.union(mi1_5.union(mi4_5)));
-    	System.out.println("|--> (mi1_3.union(mi1_5)).union(mi4_5) = "+(mi1_3.union(mi1_5)).union(mi4_5));
-    	System.out.println("|-->  mi1_3.union(mi1_5.union(mi4_5))  = "+mi1_3.union(mi1_5.union(mi4_5)));
-    	
-    	
-    	//union(m1,m2) = union(m2,m1)
-    	System.out.println("| union(m1,m2) = union(m2,m1)");
-    	assertEquals(mi1_3.union(mi1_5), mi1_5.union(mi1_3));
-    	System.out.println("|--> mi1_3.union(mi1_5) = "+mi1_3.union(mi1_5));
-    	System.out.println("|--> mi1_5.union(mi1_3) = "+mi1_5.union(mi1_3));
-    	
-    	//union(m1,m1) = m1
-    	System.out.println("| union(m1,m1) = m1");
-    	assertEquals(mi1_3, mi1_3.union(mi1_3));
-    	System.out.println("|--> mi1_3.union(mi1_3) = "+mi1_3.union(mi1_3));
-    	System.out.println("|--> mi1_3              = "+mi1_3);
+    
+System.out.println("#-- Testing union --#");
+
+     //NaI is always NaI
+System.out.println("| multiinterval.union(NaI) = NaI");
+assertTrue(mi0_15.union(nai) == nai);
+System.out.println("|--> mi0_15.union(nai) = "+mi0_15.union(nai));
+     assertTrue(nai.union(mi0_15) == nai);
+     System.out.println("|--> nai.union(mi0_15) = "+nai.union(mi0_15));
+    
+     //union(m1, realInterval) = realInterval
+     System.out.println("| union(Multiinterval, realInterval) = realInterval");
+     assertEquals(real, mi0_15.union(real));
+     System.out.println("|--> mi0_15.union(real) = "+mi0_15.union(real));
+    
+     //union(union(m1,m2),m3) = union(m1,union(m2,m3))
+     System.out.println("| union(union(m1,m2),m3) = union(m1,union(m2,m3))");
+     assertEquals((mi1_3.union(mi1_5)).union(mi4_5),mi1_3.union(mi1_5.union(mi4_5)));
+     System.out.println("|--> (mi1_3.union(mi1_5)).union(mi4_5) = "+(mi1_3.union(mi1_5)).union(mi4_5));
+     System.out.println("|--> mi1_3.union(mi1_5.union(mi4_5)) = "+mi1_3.union(mi1_5.union(mi4_5)));
+    
+    
+     //union(m1,m2) = union(m2,m1)
+     System.out.println("| union(m1,m2) = union(m2,m1)");
+     assertEquals(mi1_3.union(mi1_5), mi1_5.union(mi1_3));
+     System.out.println("|--> mi1_3.union(mi1_5) = "+mi1_3.union(mi1_5));
+     System.out.println("|--> mi1_5.union(mi1_3) = "+mi1_5.union(mi1_3));
+    
+     //union(m1,m1) = m1
+     System.out.println("| union(m1,m1) = m1");
+     assertEquals(mi1_3, mi1_3.union(mi1_3));
+     System.out.println("|--> mi1_3.union(mi1_3) = "+mi1_3.union(mi1_3));
+     System.out.println("|--> mi1_3 = "+mi1_3);
     }
     
     public void test_intersection() {
-    	
-    	System.out.println("#-- Testing intersection --#");
-    	
-    	//intersection(NaI, m1) = intersection(m1, NaI) = NaI
-    	System.out.println("| intersection(NaI, m1) = intersection(m1, NaI) = NaI");
-    	assertTrue(nai == mi1_3.intersection(nai));
-    	System.out.println("|--> mi1_3.intersection(nai) = "+mi1_3.intersection(nai));
-    	assertTrue(nai == nai.intersection(mi1_3));
-    	System.out.println("|--> nai.intersection(mi1_3) = "+nai.intersection(mi1_3));
-    	
-    	//intersection(real, m1) = intersection(m1, real) = m1
-    	System.out.println("| intersection(real, m1) = intersection(m1, real) = m1");
-    	assertEquals(mi1_3, mi1_3.intersection(real));
-    	System.out.println("|--> mi1_3.intersection(real) = "+mi1_3.intersection(real));
-    	assertEquals(mi1_3, real.intersection(mi1_3));
-    	System.out.println("|--> real.intersection(mi1_3) = "+real.intersection(mi1_3));
-    	
-    	//intersection(m1,intersection(m2,m3)) = intersection(intersection(m1,m2),m3)
-    	System.out.println("| intersection(m1,intersection(m2,m3)) = intersection(intersection(m1,m2),m3)");
-    	assertEquals(mi1_3.intersection(mi1_5.intersection(mi4_5)), (mi1_3.intersection(mi1_5)).intersection(mi4_5));
-    	System.out.println("|--> mi1_3.intersection(mi1_5.intersection(mi4_5))   = "+mi1_3.intersection(mi1_5.intersection(mi4_5)));
-    	System.out.println("|--> (mi1_3.intersection(mi1_5)).intersection(mi4_5) = "+(mi1_3.intersection(mi1_5)).intersection(mi4_5));
-    	
-    	//intersection(m1,m2) = intersection(m2,m1)
-    	System.out.println("| intersection(m1,m2) = intersection(m2,m1)");
-    	assertEquals(mi1_3.intersection(mi1_5), mi1_5.intersection(mi1_3));
-    	System.out.println("|--> mi1_3.intersection(mi1_5) = "+mi1_3.intersection(mi1_5));
-    	System.out.println("|--> mi1_5.intersection(mi1_3) = "+mi1_5.intersection(mi1_3));
-    	
-    	//intersection(m1,m1) = m1
-    	System.out.println("| intersection(m1,m1) = m1");
-    	assertEquals(mi1_3, mi1_3.intersection(mi1_3));
-    	System.out.println("|--> mi1_3.intersection(mi1_3) = "+mi1_3.intersection(mi1_3));
-    	System.out.println("|--> mi1_3                     = "+mi1_3);
+    
+     System.out.println("#-- Testing intersection --#");
+    
+     //intersection(NaI, m1) = intersection(m1, NaI) = NaI
+     System.out.println("| intersection(NaI, m1) = intersection(m1, NaI) = NaI");
+     assertTrue(nai == mi1_3.intersection(nai));
+     System.out.println("|--> mi1_3.intersection(nai) = "+mi1_3.intersection(nai));
+     assertTrue(nai == nai.intersection(mi1_3));
+     System.out.println("|--> nai.intersection(mi1_3) = "+nai.intersection(mi1_3));
+    
+     //intersection(real, m1) = intersection(m1, real) = m1
+     System.out.println("| intersection(real, m1) = intersection(m1, real) = m1");
+     assertEquals(mi1_3, mi1_3.intersection(real));
+     System.out.println("|--> mi1_3.intersection(real) = "+mi1_3.intersection(real));
+     assertEquals(mi1_3, real.intersection(mi1_3));
+     System.out.println("|--> real.intersection(mi1_3) = "+real.intersection(mi1_3));
+    
+     //intersection(m1,intersection(m2,m3)) = intersection(intersection(m1,m2),m3)
+     System.out.println("| intersection(m1,intersection(m2,m3)) = intersection(intersection(m1,m2),m3)");
+     assertEquals(mi1_3.intersection(mi1_5.intersection(mi4_5)), (mi1_3.intersection(mi1_5)).intersection(mi4_5));
+     System.out.println("|--> mi1_3.intersection(mi1_5.intersection(mi4_5)) = "+mi1_3.intersection(mi1_5.intersection(mi4_5)));
+     System.out.println("|--> (mi1_3.intersection(mi1_5)).intersection(mi4_5) = "+(mi1_3.intersection(mi1_5)).intersection(mi4_5));
+    
+     //intersection(m1,m2) = intersection(m2,m1)
+     System.out.println("| intersection(m1,m2) = intersection(m2,m1)");
+     assertEquals(mi1_3.intersection(mi1_5), mi1_5.intersection(mi1_3));
+     System.out.println("|--> mi1_3.intersection(mi1_5) = "+mi1_3.intersection(mi1_5));
+     System.out.println("|--> mi1_5.intersection(mi1_3) = "+mi1_5.intersection(mi1_3));
+    
+     //intersection(m1,m1) = m1
+     System.out.println("| intersection(m1,m1) = m1");
+     assertEquals(mi1_3, mi1_3.intersection(mi1_3));
+     System.out.println("|--> mi1_3.intersection(mi1_3) = "+mi1_3.intersection(mi1_3));
+     System.out.println("|--> mi1_3 = "+mi1_3);
     }
     
     
     public void test_intersectionUnion() {
-    	
-    	System.out.println("#-- Testing union with intersection --#");
-    	
-    	//union(m1, intersection(m1,m2)) = m1
-    	System.out.println("| union(m1, intersection(m1,m2)) = m1");
-    	assertEquals(mi1_3, mi1_3.union(mi1_3.intersection(mi1_5)));
-    	System.out.println("|--> mi1_3.union(mi1_3.intersection(mi1_5)) = "+mi1_3.union(mi1_3.intersection(mi1_5)));
-    	System.out.println("|--> mi1_3                                  = "+mi1_3);
-    	
-    	//intersection(union(m1,m3), union(m2,m3)) = union(m3, intersection(m1,m2))
-    	System.out.println("| intersection(union(m1,m3), union(m2,m3)) = union(m3, intersection(m1,m2))");
-    	assertEquals(mi1_3.union(mi1_5).intersection(mi1_5.union(mi4_5)), mi4_5.union(mi1_3.intersection(mi1_5)));
-    	System.out.println("|--> mi1_3.union(mi1_5).intersection(mi1_5.union(mi4_5)) = "+mi1_3.union(mi1_5).intersection(mi1_5.union(mi4_5)));
-    	System.out.println("|--> mi4_5.union(mi1_3.intersection(mi1_5))              = "+mi4_5.union(mi1_3.intersection(mi1_5)));
-    	
-    	//intersection(m1, union(m1,m2)) = m1
-    	System.out.println("| intersection(m1, union(m1,m2)) = m1");
-    	assertEquals(mi1_3, mi1_3.intersection(mi1_3.union(mi1_5)));
-    	System.out.println("|--> mi1_3.intersection(mi1_3.union(mi1_5)) = "+mi1_3.intersection(mi1_3.union(mi1_5)));
-    	System.out.println("|--> mi1_3                                  = "+mi1_3);
+    
+     System.out.println("#-- Testing union with intersection --#");
+    
+     //union(m1, intersection(m1,m2)) = m1
+     System.out.println("| union(m1, intersection(m1,m2)) = m1");
+     assertEquals(mi1_3, mi1_3.union(mi1_3.intersection(mi1_5)));
+     System.out.println("|--> mi1_3.union(mi1_3.intersection(mi1_5)) = "+mi1_3.union(mi1_3.intersection(mi1_5)));
+     System.out.println("|--> mi1_3 = "+mi1_3);
+    
+     //intersection(union(m1,m3), union(m2,m3)) = union(m3, intersection(m1,m2))
+     System.out.println("| intersection(union(m1,m3), union(m2,m3)) = union(m3, intersection(m1,m2))");
+     assertEquals(mi1_3.union(mi1_5).intersection(mi1_5.union(mi4_5)), mi4_5.union(mi1_3.intersection(mi1_5)));
+     System.out.println("|--> mi1_3.union(mi1_5).intersection(mi1_5.union(mi4_5)) = "+mi1_3.union(mi1_5).intersection(mi1_5.union(mi4_5)));
+     System.out.println("|--> mi4_5.union(mi1_3.intersection(mi1_5)) = "+mi4_5.union(mi1_3.intersection(mi1_5)));
+    
+     //intersection(m1, union(m1,m2)) = m1
+     System.out.println("| intersection(m1, union(m1,m2)) = m1");
+     assertEquals(mi1_3, mi1_3.intersection(mi1_3.union(mi1_5)));
+     System.out.println("|--> mi1_3.intersection(mi1_3.union(mi1_5)) = "+mi1_3.intersection(mi1_3.union(mi1_5)));
+     System.out.println("|--> mi1_3 = "+mi1_3);
     }
 }
