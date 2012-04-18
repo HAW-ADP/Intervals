@@ -191,7 +191,6 @@ public class MultiIntervals implements Intervals {
 		for (Interval i1 : intervals)
 			if (other instanceof Intervals) // If we got multiple, then we join all the intersections
 				for (Interval i2 : (Intervals) other)
-					//if(i1.intersection(i2) != Interval.NaI)
 						result.add(i1.intersection(i2));
 			else
 				result.add(i1.intersection(other));
