@@ -16,8 +16,8 @@ import org.junit.runners.Suite;
 *
 * @author Fujitsu
 */
-@RunWith(Suite.class)
-@Suite.SuiteClasses({})
+//@RunWith(Suite.class)
+//@Suite.SuiteClasses({})
 public class TestMultiInterval extends TestCase {
 Set<Interval> iSet;
     Interval nai = Interval.NaI, zero = Interval.zeroInterval,
@@ -239,7 +239,7 @@ System.out.println("|--> mi0_15.union(nai) = "+mi0_15.union(nai));
      //intersection(m1,intersection(m2,m3)) = intersection(intersection(m1,m2),m3)
      System.out.println("| intersection(m1,intersection(m2,m3)) = intersection(intersection(m1,m2),m3)");
      assertEquals(mi1_3.intersection(mi1_5.intersection(mi4_5)), (mi1_3.intersection(mi1_5)).intersection(mi4_5));
-     System.out.println("|--> mi1_3.intersection(mi1_5.intersection(mi4_5)) = "+mi1_3.intersection(mi1_5.intersection(mi4_5)));
+     System.out.println("|-->  mi1_3.intersection(mi1_5.intersection(mi4_5))  = "+mi1_3.intersection(mi1_5.intersection(mi4_5)));
      System.out.println("|--> (mi1_3.intersection(mi1_5)).intersection(mi4_5) = "+(mi1_3.intersection(mi1_5)).intersection(mi4_5));
     
      //intersection(m1,m2) = intersection(m2,m1)
