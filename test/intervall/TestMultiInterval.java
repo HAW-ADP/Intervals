@@ -16,8 +16,8 @@ import org.junit.runners.Suite;
 *
 * @author Fujitsu
 */
-//@RunWith(Suite.class)
-//@Suite.SuiteClasses({})
+@RunWith(Suite.class)
+@Suite.SuiteClasses({})
 public class TestMultiInterval extends TestCase {
 Set<Interval> iSet;
     Interval nai = Interval.NaI, zero = Interval.zeroInterval,
