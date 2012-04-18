@@ -312,9 +312,9 @@ public class NormalInterval implements Interval {
 		else if (greater(other) || other.getLowerBound() == Double.NEGATIVE_INFINITY || upperBound == Double.POSITIVE_INFINITY)
 			return 0d;
 		else if (this.contains(other))
-			return (100 - (100 * (upperBound - other.getUpperBound() / length())) - (50 * (other.length() / length())));
+			return (100 - (100 * ((upperBound - other.getUpperBound()) / length())) - (50 * (other.length() / length())));
 		else if (other.contains(this))
-			return (50 * (length() / other.length())) + (100 * (other.getUpperBound() - upperBound / other.length()));
+			return (50 * (length() / other.length())) + (100 * ((other.getUpperBound() - upperBound) / other.length()));
 		else if (other.contains(this.upperBound)) {
 			double b = upperBound - other.getUpperBound();
 			return (100 - (50 * (b / length()) * (b / other.length())));
