@@ -138,11 +138,12 @@ public class TestMultiInterval extends TestCase {
 
         // Beispiele
         assertEquals(mi0_30, mi0_15.plus(mi0_15));
+        System.out.println("mi0_15 +  mi0_15  = " + mi0_30);
         assertEquals(mi0_60, mi0_30.plus(mi0_30));
 
         // Kommutativ
         assertEquals(mi0_15.plus(mi0_30), mi0_30.plus(mi0_15));
-//        assertEquals(mi0_15.plus(i7_8), mi0_15.plusKom(i7_8));
+        assertEquals(mi0_15.plus(i7_8), i7_8.plus(mi0_15));
         assertEquals(mi0_15.plus(3), mi0_15.plusKom(3));
 
         // Spezialf lle
@@ -156,6 +157,7 @@ public class TestMultiInterval extends TestCase {
 
         // Beispiele
         assertEquals(mi_30_30, mi0_30.minus(mi0_30));
+        System.out.println("mi0_30 -  mi0_30  = " + mi_30_30);
 
         // Spezialf lle
         assertEquals(mi0_15, mi0_15.minus(zero));
@@ -168,19 +170,17 @@ public class TestMultiInterval extends TestCase {
 
         // Beispiele
         assertEquals(mi0_900, mi0_30.multi(mi0_30));
+        System.out.println("mi0_30 +  mi0_30  = " + mi0_900);
 
         // Kommutativ
         assertEquals(mi0_15.multi(mi0_30), mi0_30.multi(mi0_15));
-//        assertEquals(mi0_15.multi(i7_8), mi0_15.multiKom(i7_8));
         assertEquals(mi0_15.multi(3d), mi0_15.multiKom(3d));
 
         // Spezialf lle
         assertEquals(zero, mi0_15.multi(zero));
         assertTrue(mi0_15.equals(mi0_15.multi(one)));
-        assertEquals(real, mi0_15.multi(real));
         assertFalse(nai.equals(mi0_15.multi(nai)));
-    }
-    //Carola end
+    }    //Carola end
     
 public void test_union() {
     	
