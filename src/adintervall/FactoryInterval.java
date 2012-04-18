@@ -8,8 +8,7 @@ public final class FactoryInterval {
 	}
 
 	public static Interval createInterval(double val1, double val2) {
-		if (NormalInterval.isNaN(val1) || NormalInterval.isNaN(val2)
-				|| val1 > val2)
+		if (Double.isNaN(val1) || Double.isNaN(val2) || val1 > val2)
 			return Interval.NaI;
 		else if (val1 == 0d && val2 == 0d)
 			return Interval.zeroInterval;
