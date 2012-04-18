@@ -210,6 +210,9 @@ public void test_union() {
     }
     
     public void test_intersection() {
+    	
+    	System.out.println("#-- Testing intersection --#");
+    	
     	//intersection(NaI, m1) = intersection(m1, NaI) = NaI
     	System.out.println("| intersection(NaI, m1) = intersection(m1, NaI) = NaI");
     	assertTrue(nai == mi1_3.intersection(nai));
@@ -245,13 +248,25 @@ public void test_union() {
     
     
     public void test_intersectionUnion() {
+    	
+    	System.out.println("#-- Testing union with intersection --#");
+    	
     	//union(m1, intersection(m1,m2)) = m1
+    	System.out.println("| union(m1, intersection(m1,m2)) = m1");
     	assertEquals(mi1_3, mi1_3.union(mi1_3.intersection(mi1_5)));
+    	System.out.println("|--> mi1_3.union(mi1_3.intersection(mi1_5)) = "+mi1_3.union(mi1_3.intersection(mi1_5)));
+    	System.out.println("|--> mi1_3                                  = "+mi1_3);
     	
     	//intersection(union(m1,m3), union(m2,m3)) = union(m3, intersection(m1,m2))
+    	System.out.println("| intersection(union(m1,m3), union(m2,m3)) = union(m3, intersection(m1,m2))");
     	assertEquals(mi1_3.union(mi1_5).intersection(mi1_5.union(mi4_5)), mi4_5.union(mi1_3.intersection(mi1_5)));
+    	System.out.println("|--> mi1_3.union(mi1_5).intersection(mi1_5.union(mi4_5)) = "+mi1_3.union(mi1_5).intersection(mi1_5.union(mi4_5)));
+    	System.out.println("|--> mi4_5.union(mi1_3.intersection(mi1_5))              = "+mi4_5.union(mi1_3.intersection(mi1_5)));
     	
     	//intersection(m1, union(m1,m2)) = m1
+    	System.out.println("| intersection(m1, union(m1,m2)) = m1");
     	assertEquals(mi1_3, mi1_3.intersection(mi1_3.union(mi1_5)));
+    	System.out.println("|--> mi1_3.intersection(mi1_3.union(mi1_5)) = "+mi1_3.intersection(mi1_3.union(mi1_5)));
+    	System.out.println("|--> mi1_3                                  = "+mi1_3);
     }
 }
