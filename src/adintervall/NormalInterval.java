@@ -76,7 +76,6 @@ public class NormalInterval implements Interval {
 
 		double[] d = {lowerBound * other.getLowerBound(), lowerBound * other.getUpperBound(), upperBound * other.getLowerBound(), upperBound * other.getUpperBound()};
 		Arrays.sort(d);
-
 		return createInterval(d[0], d[d.length - 1]);
 	}
 
@@ -193,12 +192,12 @@ public class NormalInterval implements Interval {
 			return emptyInterval;
 		else if (other instanceof Intervals)
 			return other.intersection(this);
-		double d1 = Math.max(lowerBound,  other.getLowerBound());
-		double d2 = Math.min(upperBound,  other.getUpperBound());
-		if (d1 > d2)
+		double a = Math.max(lowerBound,  other.getLowerBound());
+		double b = Math.min(upperBound,  other.getUpperBound());
+		if (a > b)
 			return emptyInterval;
 		else
-			return createInterval(d1, d2);
+			return createInterval(a, b);
 	}
 
 	@Override
@@ -209,6 +208,12 @@ public class NormalInterval implements Interval {
 			return this;
 		else if (equals(other) || other.contains(this))
 			return emptyInterval;
+		else if (other instanceof Intervals) {
+			Interval intersection = Interval.realInterval;
+			for (Interval i : (Intervals) other)
+				intersection = intersection.intersection(difference(i));
+			return intersection;
+		}
 		double a, b;
 		a = Double.NaN;
 		b = Double.NaN;
@@ -303,7 +308,7 @@ public class NormalInterval implements Interval {
 
 	@Override
 	public double pLess(Interval other) {
-		if (other == null || this == Interval.NaI || other == Interval.NaI)
+		if (other == null || this == Interval.NaI || other == Interval.NaI || other == emptyInterval)
 			return Double.NaN;
 
 		if (equals(other) || (lowerBound == other.getLowerBound() && other.getLowerBound() == Double.NEGATIVE_INFINITY) || (upperBound == other.getUpperBound() && other.getUpperBound() == Double.POSITIVE_INFINITY))
@@ -313,9 +318,9 @@ public class NormalInterval implements Interval {
 		else if (greater(other) || other.getLowerBound() == Double.NEGATIVE_INFINITY || upperBound == Double.POSITIVE_INFINITY)
 			return 0d;
 		else if (this.contains(other))
-			return (100 - (100 * (upperBound - other.getUpperBound() / length())) - (50 * (other.length() / length())));
+			return (100 - (100 * ((upperBound - other.getUpperBound()) / length())) - (50 * (other.length() / length())));
 		else if (other.contains(this))
-			return (50 * (length() / other.length())) + (100 * (other.getUpperBound() - upperBound / other.length()));
+			return (50 * (length() / other.length())) + (100 * ((other.getUpperBound() - upperBound) / other.length()));
 		else if (other.contains(this.upperBound)) {
 			double b = upperBound - other.getUpperBound();
 			return (100 - (50 * (b / length()) * (b / other.length())));
@@ -335,7 +340,7 @@ public class NormalInterval implements Interval {
 
 	@Override
 	public double pGreater(Interval other) {
-		if (other == null || this == Interval.NaI || other == Interval.NaI)
+		if (other == null || this == Interval.NaI || other == Interval.NaI || other == emptyInterval)
 			return Double.NaN;
 		return 100 - pLess(other);
 	}

@@ -73,7 +73,7 @@ public class MultiIntervals implements Intervals {
 			return true;
 		} else {
 			for (Interval i : intervals)
-				if (i.equals(other))
+				if (i.contains(other))
 					return true;
 			return false;
 		}
@@ -187,11 +187,11 @@ public class MultiIntervals implements Intervals {
 	@Override
 	public Interval intersection(Interval other) {
 		// We intersect all our intervals with the other
-		LinkedList<Interval> result = new LinkedList<Interval>();
+		List<Interval> result = new LinkedList<Interval>();
 		for (Interval i1 : intervals)
 			if (other instanceof Intervals) // If we got multiple, then we join all the intersections
 				for (Interval i2 : (Intervals) other)
-					result.add(i1.intersection(i2));
+						result.add(i1.intersection(i2));
 			else
 				result.add(i1.intersection(other));
 		return FactoryInterval.createInterval(result);

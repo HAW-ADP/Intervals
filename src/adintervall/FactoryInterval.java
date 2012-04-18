@@ -31,7 +31,7 @@ public final class FactoryInterval {
 	}
 
 	public static Interval createInterval(Collection<? extends Object> col) {
-		List<Interval> lList = new LinkedList<>();
+		List<Interval> lList = new LinkedList<Interval>();
 		if (col.isEmpty())
 			return Interval.emptyInterval;
 		for (Object obj : col)
@@ -57,7 +57,7 @@ public final class FactoryInterval {
 			}
 		});
 
-		List<Interval> result = new LinkedList<>();
+		List<Interval> result = new LinkedList<Interval>();
 		Double lbound = null;
 		Double ubound = null;
 
